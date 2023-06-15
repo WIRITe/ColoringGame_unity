@@ -1,113 +1,96 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawingScene : MonoBehaviour
+public class DrowingScene : MonoBehaviour
 {
-    public Color[] colors; // Array of colors that can be used for coloring
-    public SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer component of the sprite to color
+    public Texture2D textureToColor;
 
-    private Texture2D texture; // Texture used by the sprite
-    private bool isTextureUpdated = false; // Flag to track if the texture needs to be updated
+    public List<Color> colors;
+    public List<string> colors_str = new List<string>();
 
-    private void Start()
+    public Color colorToApply = Color.white;
+    public Color colorToColoring;
+    public float brushSize = 10f;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
     {
-        // Create a new texture with the same dimensions as the sprite's texture
-        texture = new Texture2D(
-            spriteRenderer.sprite.texture.width,
-            spriteRenderer.sprite.texture.height
-        );
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Assign the pixels from the sprite's texture to the new texture
-        texture.SetPixels(spriteRenderer.sprite.texture.GetPixels());
-        texture.Apply();
-
-        // Assign the new texture to the sprite renderer
-        spriteRenderer.sprite = Sprite.Create(
-            texture,
-            spriteRenderer.sprite.rect,
-            new Vector2(0.5f, 0.5f),
-            spriteRenderer.sprite.pixelsPerUnit
-        );
+        foreach(Color _color in colors)
+        {
+            colors_str.Add(ColorUtility.ToHtmlStringRGB(_color));
+        }
     }
 
+    public void StartGame(Picture _picture)
+    {
+
+    }
+
+    GameObject firstPress;
     private void Update()
     {
-        // Check for mouse click or drag
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
+
+            if (hit.collider != null)
+            {
+                firstPress = hit.collider.gameObject;
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            firstPress = null;
+        }
+
         if (Input.GetMouseButton(0))
         {
-            // Convert mouse position to texture coordinates
-            Vector2 textureCoords = GetMouseTextureCoordinates();
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
 
-            // Convert texture coordinates to pixel position
-            Vector2Int pixelPosition = new Vector2Int(
-                Mathf.RoundToInt(textureCoords.x * texture.width),
-                Mathf.RoundToInt(textureCoords.y * texture.height)
-            );
-
-            // Color the area around the clicked position
-            Color currentColor = GetCurrentColor();
-            int brushSize = 5; // Adjust the brush size as desired
-
-            // Get the pixels within the brush area
-            Color[] pixels = texture.GetPixels(
-                pixelPosition.x - brushSize,
-                pixelPosition.y - brushSize,
-                brushSize * 2 + 1,
-                brushSize * 2 + 1
-            );
-
-            // Apply the desired color to each pixel
-            for (int i = 0; i < pixels.Length; i++)
+            if (hit.collider.gameObject == firstPress && colors_str.Contains(hit.collider.gameObject.name))
             {
-                pixels[i] = currentColor;
+                Vector2 localPosition = transform.InverseTransformPoint(hit.point);
+                Bounds bounds = spriteRenderer.sprite.bounds;
+
+                float u = (localPosition.x - bounds.min.x) / bounds.size.x;
+                float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+
+                int texWidth = textureToColor.width;
+                int texHeight = textureToColor.height;
+
+                int centerX = Mathf.FloorToInt(u * texWidth);
+                int centerY = Mathf.FloorToInt(v * texHeight);
+
+                Color[] pixels = textureToColor.GetPixels();
+                int brushRadius = Mathf.FloorToInt(brushSize);
+
+                for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
+                {
+                    for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
+                    {
+                        if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
+                        {
+                            int index = y * texWidth + x;
+                            Color newColor;
+                            if(ColorUtility.TryParseHtmlString(hit.collider.gameObject.name, out newColor))
+                            {
+                                if (pixels[index] != colorToColoring) pixels[index] = newColor;
+                            }
+                        }
+                    }
+                }
+
+                textureToColor.SetPixels(pixels);
+                textureToColor.Apply();
+
+                spriteRenderer.sprite = Sprite.Create(textureToColor, spriteRenderer.sprite.rect, new Vector2(0.5f, 0.5f));
             }
-
-            // Set the modified pixels back to the texture
-            texture.SetPixels(
-                pixelPosition.x - brushSize,
-                pixelPosition.y - brushSize,
-                brushSize * 2 + 1,
-                brushSize * 2 + 1,
-                pixels
-            );
-
-            // Mark the texture as updated
-            isTextureUpdated = true;
         }
-
-        // Apply the texture updates if needed
-        if (isTextureUpdated)
-        {
-            texture.Apply();
-            isTextureUpdated = false;
-        }
-    }
-
-    // Get the current selected color
-    private Color GetCurrentColor()
-    {
-        if (colors.Length > 0)
-        {
-            return colors[0];
-        }
-        return Color.white; // Default color if no colors are available
-    }
-
-    // Convert mouse position to texture coordinates
-    private Vector2 GetMouseTextureCoordinates()
-    {
-        // Get the mouse position in screen coordinates
-        Vector3 mousePosition = Input.mousePosition;
-
-        // Normalize the screen coordinates to the range [0, 1]
-        Vector2 normalizedCoords = new Vector2(
-            mousePosition.x / Screen.width,
-            mousePosition.y / Screen.height
-        );
-
-        // Convert the normalized screen coordinates to texture coordinates
-        return new Vector2(
-            normalizedCoords.x * spriteRenderer.sprite.rect.width / spriteRenderer.sprite.texture.width,
-            normalizedCoords.y * spriteRenderer.sprite.rect.height / spriteRenderer.sprite.texture.height
-        );
     }
 }
