@@ -8,9 +8,17 @@ public class DrowingScene : MonoBehaviour
     public Color colorToColoring;
     public GameObject _gameCanvas;
 
+    public float brushSize;
+
+    public SpriteRenderer spriteRenderer;
+    public Sprite _sprite;
+    public Texture2D originalTexture;
+
+    List<Color> _colors = new List<Color>();
     public void StartGame(Picture _picture)
     {
-        //_gameCanvas.SetActive(true);
+        _gameCanvas.SetActive(true);
+        
         foreach (Sprite layer in _picture.Layers)
         {
             GameObject new_layer = Instantiate(OneLayerPref, new Vector3(0, 0, 0), Quaternion.identity);
@@ -19,7 +27,21 @@ public class DrowingScene : MonoBehaviour
             new_layer.AddComponent<PolygonCollider2D>();
             new_layer.GetComponent<PolygonCollider2D>().autoTiling = true;
             new_layer.GetComponent<PolygonCollider2D>().isTrigger = true;
+
+            Color _color;
+            if (ColorUtility.TryParseHtmlString("#" + layer.name, out _color))
+            {
+                _colors.Add(_color);
+            }
         }
+
+        Debug.Log(_colors);
+        _gameCanvas.GetComponent<ColorsCanvas>().setButtons(_colors);
+    }
+
+    public void Set_nowColor(Color _color)
+    {
+        NowColor = _color;
     }
 
     public GameObject firstPress;
@@ -33,6 +55,10 @@ public class DrowingScene : MonoBehaviour
             if (hit.collider != null)
             {
                 firstPress = hit.collider.gameObject;
+
+                spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
+                _sprite = spriteRenderer.sprite;
+                originalTexture = _sprite.texture;
             }
 
             return;
@@ -54,44 +80,39 @@ public class DrowingScene : MonoBehaviour
                 Debug.Log(firstPress.gameObject.name);
                 if (firstPress.gameObject.name == ColorUtility.ToHtmlStringRGB(NowColor))
                 {
-                    Debug.Log(ColorUtility.ToHtmlStringRGB(NowColor));
-
-                    SpriteRenderer spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-                    Sprite _sprite = spriteRenderer.sprite;
-                    Texture2D originalTexture = _sprite.texture;
-
-                    // Clone the original texture to a new writable texture
-                    Texture2D modifiedTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
-                    modifiedTexture.filterMode = FilterMode.Point;
-                    modifiedTexture.wrapMode = TextureWrapMode.Clamp;
-                    Graphics.CopyTexture(originalTexture, modifiedTexture);
-
                     Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(hit.point);
-                    Bounds bounds = spriteRenderer.bounds;
+                    Bounds bounds = _sprite.bounds;
 
                     float u = (localPosition.x - bounds.min.x) / bounds.size.x;
                     float v = (localPosition.y - bounds.min.y) / bounds.size.y;
 
-                    int texWidth = modifiedTexture.width;
-                    int texHeight = modifiedTexture.height;
+                    int texWidth = originalTexture.width;
+                    int texHeight = originalTexture.height;
 
-                    int x = Mathf.FloorToInt(u * (texWidth - 1));
-                    int y = Mathf.FloorToInt(v * (texHeight - 1));
+                    int centerX = Mathf.FloorToInt(u * texWidth);
+                    int centerY = Mathf.FloorToInt(v * texHeight);
 
-                    Color pixelColor = modifiedTexture.GetPixel(x, y);
-                    if (pixelColor != colorToColoring)
+                    Color[] pixels = originalTexture.GetPixels();
+                    int brushRadius = Mathf.FloorToInt(brushSize);
+
+                    for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
                     {
-                        modifiedTexture.SetPixel(x, y, NowColor);
-                        modifiedTexture.Apply();
+                        for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
+                        {
+                            if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
+                            {
+                                int index = y * texWidth + x;
 
-                        Rect spriteRect = _sprite.rect;
-                        Vector2 pivot = new Vector2(0.5f, 0.5f);
-                        Sprite newSprite = Sprite.Create(modifiedTexture, spriteRect, pivot);
-
-                        spriteRenderer.sprite = newSprite;
-
-                        Debug.Log("colors good");
+                                if (pixels[index] == colorToColoring) pixels[index] = NowColor;
+                            }
+                        }
                     }
+
+                    originalTexture.SetPixels(pixels);
+                    originalTexture.Apply();
+
+                    _sprite = Sprite.Create(originalTexture, _sprite.rect, new Vector2(0.5f, 0.5f));
+                    spriteRenderer.sprite = _sprite;
                 }
             }
             else
