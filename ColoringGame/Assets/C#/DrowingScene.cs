@@ -4,23 +4,18 @@ using UnityEngine;
 public class DrowingScene : MonoBehaviour
 {
     public GameObject OneLayerPref;
-
     public Color NowColor;
-
     public Color colorToColoring;
-    public float brushSize = 10f;
-
     public GameObject _gameCanvas;
 
     public void StartGame(Picture _picture)
     {
         //_gameCanvas.SetActive(true);
-
         foreach (Sprite layer in _picture.Layers)
         {
             GameObject new_layer = Instantiate(OneLayerPref, new Vector3(0, 0, 0), Quaternion.identity);
+            new_layer.name = layer.name;
             new_layer.GetComponent<SpriteRenderer>().sprite = layer;
-
             new_layer.AddComponent<PolygonCollider2D>();
             new_layer.GetComponent<PolygonCollider2D>().autoTiling = true;
             new_layer.GetComponent<PolygonCollider2D>().isTrigger = true;
@@ -32,76 +27,70 @@ public class DrowingScene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
-            if (Physics.Raycast(ray, out hit))
+            if (hit.collider != null)
             {
-                if (hit.collider != null)
-                {
-                    firstPress = hit.collider.gameObject;
-                }
+                firstPress = hit.collider.gameObject;
             }
+
             return;
         }
-
         else if (Input.GetMouseButtonUp(0))
         {
             firstPress = null;
             return;
         }
-
-        else if(Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector3(0, 0, 1));
 
-            if (Physics.Raycast(ray, out hit))
+            if (hit.collider != null)
             {
-                Debug.Log(ray.GetPoint(0).ToString());
+                if (firstPress == null) return;
 
-                Color newColor;
-                if (ColorUtility.TryParseHtmlString(hit.collider.gameObject.name, out newColor))
+                Debug.Log(firstPress.gameObject.name);
+                if (firstPress.gameObject.name == ColorUtility.ToHtmlStringRGB(NowColor))
                 {
-                    if (newColor == NowColor) // Assuming NowColor is defined correctly
+                    Debug.Log(ColorUtility.ToHtmlStringRGB(NowColor));
+
+                    SpriteRenderer spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
+                    Sprite _sprite = spriteRenderer.sprite;
+                    Texture2D originalTexture = _sprite.texture;
+
+                    // Clone the original texture to a new writable texture
+                    Texture2D modifiedTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
+                    modifiedTexture.filterMode = FilterMode.Point;
+                    modifiedTexture.wrapMode = TextureWrapMode.Clamp;
+                    Graphics.CopyTexture(originalTexture, modifiedTexture);
+
+                    Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(hit.point);
+                    Bounds bounds = spriteRenderer.bounds;
+
+                    float u = (localPosition.x - bounds.min.x) / bounds.size.x;
+                    float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+
+                    int texWidth = modifiedTexture.width;
+                    int texHeight = modifiedTexture.height;
+
+                    int x = Mathf.FloorToInt(u * (texWidth - 1));
+                    int y = Mathf.FloorToInt(v * (texHeight - 1));
+
+                    Color pixelColor = modifiedTexture.GetPixel(x, y);
+                    if (pixelColor != colorToColoring)
                     {
-                        SpriteRenderer spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-                        Sprite _sprite = spriteRenderer.sprite;
-                        Texture2D _texture = _sprite.texture;
+                        modifiedTexture.SetPixel(x, y, NowColor);
+                        modifiedTexture.Apply();
 
-                        Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(hit.point);
-                        Bounds bounds = _sprite.bounds;
+                        Rect spriteRect = _sprite.rect;
+                        Vector2 pivot = new Vector2(0.5f, 0.5f);
+                        Sprite newSprite = Sprite.Create(modifiedTexture, spriteRect, pivot);
 
-                        float u = (localPosition.x - bounds.min.x) / bounds.size.x;
-                        float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+                        spriteRenderer.sprite = newSprite;
 
-                        int texWidth = _texture.width;
-                        int texHeight = _texture.height;
-
-                        int centerX = Mathf.FloorToInt(u * texWidth);
-                        int centerY = Mathf.FloorToInt(v * texHeight);
-
-                        Color[] pixels = _texture.GetPixels();
-                        int brushRadius = Mathf.FloorToInt(brushSize);
-
-                        for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
-                        {
-                            for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
-                            {
-                                if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
-                                {
-                                    int index = y * texWidth + x;
-
-                                    if (pixels[index] != colorToColoring) pixels[index] = newColor;
-                                }
-                            }
-                        }
-
-                        _texture.SetPixels(pixels);
-                        _texture.Apply();
-
-                        _sprite = Sprite.Create(_texture, _sprite.rect, new Vector2(0.5f, 0.5f));
-                        spriteRenderer.sprite = _sprite;
+                        Debug.Log("colors good");
                     }
                 }
             }
@@ -109,7 +98,6 @@ public class DrowingScene : MonoBehaviour
             {
                 Debug.Log("Ray did not hit anything.");
             }
-
         }
     }
 }
