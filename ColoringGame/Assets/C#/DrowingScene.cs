@@ -58,7 +58,7 @@ public class DrowingScene : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.DrawRay(ray.origin, ray.direction);
+                Debug.Log(ray.GetPoint(0).ToString());
 
                 Color newColor;
                 if (ColorUtility.TryParseHtmlString(hit.collider.gameObject.name, out newColor))
