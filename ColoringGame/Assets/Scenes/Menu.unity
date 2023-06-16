@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &216762943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,11 +239,11 @@ GameObject:
   - component: {fileID: 256755878}
   m_Layer: 0
   m_Name: GameTable
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &256755878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,12 +256,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13420b3ba8edb554290e2f0ac2aa9230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textureToColor: {fileID: 0}
-  colors: []
-  colors_str: []
-  colorToApply: {r: 1, g: 1, b: 1, a: 1}
+  OneLayerPref: {fileID: 1887776293458664583, guid: 83e6e9a9c017e1845936d1cb2a9c762f, type: 3}
+  NowColor: {r: 0.19607843, g: 0.2, b: 0.18039216, a: 0}
   colorToColoring: {r: 0, g: 0, b: 0, a: 0}
   brushSize: 10
+  _gameCanvas: {fileID: 1236114333}
+  firstPress: {fileID: 0}
 --- !u!212 &256755879
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -739,9 +739,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbfc68c8079cba4e9de2b292b5c0e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuCanvas: {fileID: 216762942}
   ImageButtonPref: {fileID: 2488635543017814030, guid: 3ce8214869de5ce40b14e4febbbb5a6d, type: 3}
   MenuScreen: {fileID: 1034544146}
   folderPath: Picturies
+  _table: {fileID: 256755878}
 --- !u!4 &804830855
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,7 +1277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1236114334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,7 +1338,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1148197115
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1236114337
@@ -2827,7 +2829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &3252892435687823938
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3207,7 +3209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3252892436994936366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3375,7 +3377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3252892437372004742
 MonoBehaviour:
   m_ObjectHideFlags: 0

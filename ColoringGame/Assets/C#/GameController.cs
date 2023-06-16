@@ -7,10 +7,17 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    [Header("main menu canvas")]
+    public GameObject MenuCanvas;
+
+    [Header("Menu objects")]
     public GameObject ImageButtonPref;
     public GameObject MenuScreen;
 
-    public string folderPath = "PNGs/PicturesPrefabs";
+    [Header("Pictures path")]
+    public string folderPath = "Picturies";
+
+    public DrowingScene _table;
 
     private void Start()
     {
@@ -26,16 +33,14 @@ public class GameController : MonoBehaviour
             instantiatedPref.GetComponent<Image>().sprite = picture.MainImage;
 
             instantiatedPref.transform.Find("Name").GetComponent<TMP_Text>().text = picture.Name;
-
-            Debug.Log("cfvxz");
         }
-
-        Debug.Log("dfbhdfgn");
     }
 
     public void StartColoring(Picture _picture)
     {
-        print(_picture.Name);
+        _table.gameObject.SetActive(true);
+        _table.StartGame(_picture);
+        MenuCanvas.SetActive(false);
     }
 
     public List<Picture> GetPictures()

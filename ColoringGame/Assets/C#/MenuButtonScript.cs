@@ -5,7 +5,6 @@ using UnityEngine;
 public class MenuButtonScript : MonoBehaviour
 {
     public Picture _picture;
-
     public GameController _gameController;
 
     private void Start()
