@@ -16,7 +16,7 @@ public class ColorsCanvas : MonoBehaviour
 
             button_prefab.transform.localScale = new Vector3(1, 1, 1);
 
-            button_prefab.GetComponent<Image>().color = _color;
+            button_prefab.transform.Find("Button").GetComponent<Image>().color = _color;
             button_prefab.GetComponent<ColorButton>()._color = _color;
         }
     }
