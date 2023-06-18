@@ -14,7 +14,10 @@ public class DrowingScene : MonoBehaviour
     public Sprite _sprite;
     public Texture2D originalTexture;
 
+    public List<GameObject> coloringLayers = new List<GameObject>();
+
     List<Color> _colors = new List<Color>();
+
     public void StartGame(Picture _picture)
     {
         _gameCanvas.SetActive(true);
@@ -28,6 +31,8 @@ public class DrowingScene : MonoBehaviour
             new_layer.GetComponent<PolygonCollider2D>().autoTiling = true;
             new_layer.GetComponent<PolygonCollider2D>().isTrigger = true;
 
+            coloringLayers.Add(new_layer);
+
             Color _color;
             if (ColorUtility.TryParseHtmlString("#" + layer.name, out _color))
             {
@@ -35,8 +40,12 @@ public class DrowingScene : MonoBehaviour
             }
         }
 
-        Debug.Log(_colors);
         _gameCanvas.GetComponent<ColorsCanvas>().setButtons(_colors);
+
+        foreach (Color _color in _colors)
+        {
+            _gameCanvas.GetComponent<ColorsCanvas>().updateProcentage(_color, GetColoredPercentage(_color));
+        }
     }
 
     public void Set_nowColor(Color _color)
@@ -65,6 +74,7 @@ public class DrowingScene : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            if(originalTexture!=null) _gameCanvas.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(NowColor));
             firstPress = null;
             return;
         }
@@ -103,7 +113,10 @@ public class DrowingScene : MonoBehaviour
                             {
                                 int index = y * texWidth + x;
 
-                                if (pixels[index] == colorToColoring) pixels[index] = NowColor;
+                                if (pixels[index].a > 0.1f) 
+                                {
+                                    pixels[index] = NowColor;
+                                }
                             }
                         }
                     }
@@ -120,5 +133,54 @@ public class DrowingScene : MonoBehaviour
                 Debug.Log("Ray did not hit anything.");
             }
         }
+    }
+
+    public float GetColoredPercentage(Color _color)
+    {
+        Texture2D _texture = null;
+
+        foreach(GameObject layer in coloringLayers)
+        {
+            if(layer.name == ColorUtility.ToHtmlStringRGB(_color))
+            {
+                _texture = layer.GetComponent<SpriteRenderer>().sprite.texture;
+            }
+        }
+
+        Color[] pixels = _texture.GetPixels();
+        int usualPixels = 0;
+        int coloredPixelCount = 0;
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            if (pixels[i].a > 0.1f)
+            {
+                usualPixels++;
+                if(pixels[i] == NowColor)
+                {
+                    coloredPixelCount++;
+                }
+            }
+        }
+
+        Debug.Log("coloredPixelCount: " + coloredPixelCount.ToString());
+        Debug.Log("usualPixels: " + usualPixels.ToString());
+
+        float coloredPercentage = (float)((float)((float)coloredPixelCount / (float)usualPixels) * (float)100f);
+
+        Debug.Log("coloredPercentage: " + coloredPercentage);
+
+        return coloredPercentage;
+    }
+
+    public void SavePictures()
+    {
+
+    }
+    public static void SaveTextureAsPNG(Texture2D _texture, string _fullPath)
+    {
+        byte[] _bytes = _texture.EncodeToPNG();
+        System.IO.File.WriteAllBytes(_fullPath, _bytes);
+        Debug.Log(_bytes.Length / 1024 + "Kb was saved as: " + _fullPath);
     }
 }

@@ -457,7 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OneLayerPref: {fileID: 1887776293458664583, guid: 83e6e9a9c017e1845936d1cb2a9c762f, type: 3}
   NowColor: {r: 0.9529412, g: 0.88235295, b: 0.7294118, a: 1}
-  colorToColoring: {r: 1, g: 1, b: 1, a: 1}
+  colorToColoring: {r: 0, g: 0, b: 0, a: 0}
   _gameCanvas: {fileID: 1236114333}
   brushSize: 10
   spriteRenderer: {fileID: 0}
@@ -1192,11 +1192,11 @@ GameObject:
   - component: {fileID: 1236114338}
   m_Layer: 5
   m_Name: GameCanvas
-  m_TagString: Untagged
+  m_TagString: GameCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1236114334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,6 +1293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPrefab: {fileID: 1035377512645840592, guid: 0d7b6493d4ba6d04ca1d212506460fe8, type: 3}
+  ColorButtons: []
 --- !u!114 &1236114339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,7 +1836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7164471, g: 0.7761858, b: 0.9433962, a: 0.9019608}
+  m_Color: {r: 0.19691172, g: 0.34, b: 0.7075472, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
