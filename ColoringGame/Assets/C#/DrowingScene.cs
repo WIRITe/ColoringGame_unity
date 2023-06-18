@@ -103,7 +103,7 @@ public class DrowingScene : MonoBehaviour
                     int centerY = Mathf.FloorToInt(v * texHeight);
 
                     Color[] pixels = originalTexture.GetPixels();
-                    int brushRadius = Mathf.FloorToInt(brushSize);
+                    int brushRadius = Mathf.FloorToInt(brushSize * 2.5f);
 
                     for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
                     {
@@ -113,9 +113,14 @@ public class DrowingScene : MonoBehaviour
                             {
                                 int index = y * texWidth + x;
 
-                                if (pixels[index].a > 0.1f) 
+                                float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
+
+                                if (distance <= brushRadius)
                                 {
-                                    pixels[index] = NowColor;
+                                    if (pixels[index].a > 0.1f)
+                                    {
+                                        pixels[index] = NowColor;
+                                    }
                                 }
                             }
                         }
@@ -127,10 +132,6 @@ public class DrowingScene : MonoBehaviour
                     _sprite = Sprite.Create(originalTexture, _sprite.rect, new Vector2(0.5f, 0.5f));
                     spriteRenderer.sprite = _sprite;
                 }
-            }
-            else
-            {
-                Debug.Log("Ray did not hit anything.");
             }
         }
     }

@@ -459,10 +459,11 @@ MonoBehaviour:
   NowColor: {r: 0.9529412, g: 0.88235295, b: 0.7294118, a: 1}
   colorToColoring: {r: 0, g: 0, b: 0, a: 0}
   _gameCanvas: {fileID: 1236114333}
-  brushSize: 10
+  brushSize: 4
   spriteRenderer: {fileID: 0}
   _sprite: {fileID: 0}
   originalTexture: {fileID: 0}
+  coloringLayers: []
   firstPress: {fileID: 0}
 --- !u!212 &256755879
 SpriteRenderer:
