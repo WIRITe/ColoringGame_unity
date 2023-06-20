@@ -9,7 +9,7 @@ public class Picture : MonoBehaviour
 
     public string Name;
 
-    public List<Sprite> StandartLayers;
-    public List<Sprite> Layers;
-    public Sprite MainImage;
+    public List<string> StandartLayers = new List<string>();
+    public List<string> Layers = new List<string>();
+    public string MainImage;
 }

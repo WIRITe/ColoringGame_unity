@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6121309445759562992
+--- !u!1 &3775529427172088514
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7225447446114855197}
-  - component: {fileID: 1772760663708520423}
+  - component: {fileID: 4227045485502544974}
+  - component: {fileID: 615237150382940598}
   m_Layer: 0
   m_Name: Lion
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7225447446114855197
+--- !u!4 &4227045485502544974
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6121309445759562992}
+  m_GameObject: {fileID: 3775529427172088514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.614275, y: 0.38436398, z: 0.102188356}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1772760663708520423
+--- !u!114 &615237150382940598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6121309445759562992}
+  m_GameObject: {fileID: 3775529427172088514}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
@@ -48,15 +48,17 @@ MonoBehaviour:
   acess: 0
   Name: Lion
   StandartLayers:
-  - {fileID: 21300000, guid: f774e80fd6885cd48b170cb88bf4e3ed, type: 3}
-  - {fileID: 21300000, guid: 0c0c7c68825441a4eb9d1f2d0bfa2fa4, type: 3}
-  - {fileID: 21300000, guid: 1731895bf20006d4fb93a7d08c1ffaca, type: 3}
-  - {fileID: 21300000, guid: 8a1801e82bb50864782809d7a22ac5bc, type: 3}
-  - {fileID: 21300000, guid: 34487be9ffc285349a4d630c65ca9b61, type: 3}
+  - Assets/PNGs/ImagesOriginals\F3E1BA_original.png
+  - Assets/PNGs/ImagesOriginals\ECB53A_original.png
+  - Assets/PNGs/ImagesOriginals\C8894C_original.png
+  - Assets/PNGs/ImagesOriginals\52503C_original.png
+  - Assets/PNGs/ImagesOriginals\52503C_original.png
+  - Assets/PNGs/ImagesOriginals\32322F_original.png
   Layers:
-  - {fileID: 21300000, guid: 61eb8b62a14c28948a91cd6650505d3d, type: 3}
-  - {fileID: 21300000, guid: ac9703832220e174693f3241237617b9, type: 3}
-  - {fileID: 21300000, guid: 07439e67a49a1cf438747f05b8f03066, type: 3}
-  - {fileID: 21300000, guid: 280a4fea8b8642d4bb562dc00c0f9936, type: 3}
-  - {fileID: 21300000, guid: 666525ac5dda5d644854105f0419d1d3, type: 3}
-  MainImage: {fileID: 21300000, guid: 4da80c3c053b765498f096ec01a17c2c, type: 3}
+  - Assets/PNGs/Images\F3E1BA.png
+  - Assets/PNGs/Images\ECB53A.png
+  - Assets/PNGs/Images\C8894C.png
+  - Assets/PNGs/Images\52503C.png
+  - Assets/PNGs/Images\52503C.png
+  - Assets/PNGs/Images\32322F.png
+  MainImage: Assets/PNGs/ImagesOriginals\photo_2023-06-14_22-34-05.png

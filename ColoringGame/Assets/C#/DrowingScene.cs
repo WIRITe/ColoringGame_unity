@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class DrowingScene : MonoBehaviour
@@ -22,11 +23,16 @@ public class DrowingScene : MonoBehaviour
     {
         _gameCanvas.SetActive(true);
         
-        foreach (Sprite layer in _picture.Layers)
+        foreach (string layerPath in _picture.Layers)
         {
             GameObject new_layer = Instantiate(OneLayerPref, new Vector3(0, 0, 0), Quaternion.identity);
-            new_layer.name = layer.name;
-            new_layer.GetComponent<SpriteRenderer>().sprite = layer;
+            new_layer.name = Path.GetFileNameWithoutExtension(layerPath);
+
+            Texture2D _texture = FilesHandler.LoadTextureFromFile(layerPath);
+
+            Sprite _sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), Vector2.one * 0.5f);
+
+            new_layer.GetComponent<SpriteRenderer>().sprite = _sprite;
             new_layer.AddComponent<PolygonCollider2D>();
             new_layer.GetComponent<PolygonCollider2D>().autoTiling = true;
             new_layer.GetComponent<PolygonCollider2D>().isTrigger = true;
@@ -34,7 +40,7 @@ public class DrowingScene : MonoBehaviour
             coloringLayers.Add(new_layer);
 
             Color _color;
-            if (ColorUtility.TryParseHtmlString("#" + layer.name, out _color))
+            if (ColorUtility.TryParseHtmlString("#" + new_layer.name, out _color))
             {
                 _colors.Add(_color);
             }
