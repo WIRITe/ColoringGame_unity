@@ -12,7 +12,11 @@ public class GameController : MonoBehaviour
 
     [Header("Menu objects")]
     public GameObject ImageButtonPref;
-    public GameObject MenuScreen;
+
+    public GameObject animals_container;
+    public GameObject cars_container;
+    public GameObject peoples_container;
+    public GameObject things_container;
 
     [Header("Pictures path")]
     public string folderPath = "Picturies";
@@ -27,13 +31,26 @@ public class GameController : MonoBehaviour
         {
             GameObject instantiatedPref = Instantiate(ImageButtonPref);
 
-            instantiatedPref.transform.SetParent(MenuScreen.transform);
+            switch (picture.category)
+            {
+                case Enums.ECategory.Animals:
+                    instantiatedPref.transform.SetParent(animals_container.transform);
+                    break;
+                case Enums.ECategory.Cars:
+                    instantiatedPref.transform.SetParent(cars_container.transform);
+                    break;
+                case Enums.ECategory.Peoples:
+                    instantiatedPref.transform.SetParent(peoples_container.transform);
+                    break;
+                case Enums.ECategory.Things:
+                    instantiatedPref.transform.SetParent(things_container.transform);
+                    break;
+            }
+
             instantiatedPref.transform.localScale = new Vector3(1, 1, 1);
             instantiatedPref.GetComponent<MenuButtonScript>()._picture = picture;
 
-            Texture2D _texture = FilesHandler.LoadTextureFromFile(picture.MainImage);
-
-            Sprite _sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), Vector2.one * 0.5f);
+            Sprite _sprite = Sprite.Create(picture.MainImage, new Rect(0, 0, picture.MainImage.width, picture.MainImage.height), Vector2.one * 0.5f);
 
             instantiatedPref.GetComponent<Image>().sprite = _sprite;
 

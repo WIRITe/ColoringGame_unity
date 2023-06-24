@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -21,7 +21,7 @@ public class AddingPicture : MonoBehaviour
     private List<Sprite> LayersImages = new List<Sprite>();
 
     private string PreviewPath;
-    private List<string> LayersPathes = new List<string>();
+    private List<Texture2D> LayersPathes = new List<Texture2D>();
     private List<string> originalLayersPathes = new List<string>();
 
     [Header("pathes")]
@@ -44,22 +44,16 @@ public class AddingPicture : MonoBehaviour
         pictureComponent.acess = Acess_toggle.isOn ? Enums.EAcess.Premium : Enums.EAcess.Free;
 
         // Create child GameObjects for each layer sprite and assign SpriteRenderer components
-        foreach (string _path in LayersPathes)
+        foreach (Texture2D _path in LayersPathes)
         {
             pictureComponent.Layers.Add(_path);
         }
 
-        // Create child GameObjects for each original layer sprite and assign SpriteRenderer components
-        foreach (string _path in originalLayersPathes)
-        {
-            pictureComponent.StandartLayers.Add(_path);
-        }
-
-        pictureComponent.MainImage = PreviewPath;
+        pictureComponent.MainImage = null;
 
         // Save the prefab
         string prefabPath = "Assets/Resources/Picturies/" + pictureComponent.Name + ".prefab";
-        GameObject prefab = PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabPath);
+        //GameObject prefab = PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabPath);
 
         Debug.Log("Picture prefab saved at: " + prefabPath);
     }
@@ -125,7 +119,7 @@ public class AddingPicture : MonoBehaviour
             string spritePath = Path.Combine(folderPath, spriteName + ".png");
             FilesHandler.SaveSprite(sprite, spritePath);
 
-            LayersPathes.Add(spritePath);
+            LayersPathes.Add(null);
 
 
             string originalSpriteName = spriteName + "_original";
@@ -150,13 +144,13 @@ public class AddingPicture : MonoBehaviour
     ////////////\\\\\\\\\\\\\
     public void GetLayersImages()
     {
-        string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
-        HandleLayersFilePath(path);
+        //string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
+        //HandleLayersFilePath(path);
     }
     public void GetPreviewImages()
     {
-        string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
-        HandlePreviewFilePath(path);
+        //string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
+        //HandlePreviewFilePath(path);
     }
 
     //////////\\\\\\\\\\\

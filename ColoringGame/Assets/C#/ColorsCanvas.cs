@@ -37,8 +37,6 @@ public class ColorsCanvas : MonoBehaviour
             if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
                 StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
-
-                Debug.Log("move obj");
             }
         }
     }
