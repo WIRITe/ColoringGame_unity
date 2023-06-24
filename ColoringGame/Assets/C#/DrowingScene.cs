@@ -117,19 +117,19 @@ public class DrowingScene : MonoBehaviour
                 Debug.Log("if (originalTexture != null)");
                 if (spriteRenderer.gameObject.name == ColorUtility.ToHtmlStringRGB(NowColor))
                 {
-                    Debug.Log("ColorUtility.ToHtmlStringRGB(NowColor)");
-                    RaycastHit hit;
-                    if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)) { Debug.Log(hit.point); return; }
+                    Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(hit.point);
+                    Bounds bounds = _sprite.bounds;
 
+                    float u = (localPosition.x - bounds.min.x) / bounds.size.x;
+                    float v = (localPosition.y - bounds.min.y) / bounds.size.y;
 
+                    int texWidth = originalTexture.width;
+                    int texHeight = originalTexture.height;
 
-                    Vector2 pixelUV = hit.textureCoord;
-                    pixelUV.x *= spriteRenderer.sprite.texture.width;
-                    pixelUV.y *= spriteRenderer.sprite.texture.height;
+                    int centerX = Mathf.FloorToInt(u * texWidth);
+                    int centerY = Mathf.FloorToInt(v * texHeight);
 
-                    Debug.Log(" RaycastHit hit;");
-
-                    DrawPoint((int)pixelUV.x, (int)pixelUV.y);
+                    DrawPoint(centerX, centerY);
                 }
             }
         }
