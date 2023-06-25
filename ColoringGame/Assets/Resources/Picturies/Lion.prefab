@@ -52,13 +52,11 @@ MonoBehaviour:
   - Assets/PNGs/ImagesOriginals\ECB53A_original.png
   - Assets/PNGs/ImagesOriginals\C8894C_original.png
   - Assets/PNGs/ImagesOriginals\52503C_original.png
-  - Assets/PNGs/ImagesOriginals\52503C_original.png
   - Assets/PNGs/ImagesOriginals\32322F_original.png
   Layers:
   - Assets/PNGs/Images\F3E1BA.png
   - Assets/PNGs/Images\ECB53A.png
   - Assets/PNGs/Images\C8894C.png
-  - Assets/PNGs/Images\52503C.png
   - Assets/PNGs/Images\52503C.png
   - Assets/PNGs/Images\32322F.png
   MainImage: Assets/PNGs/ImagesOriginals\photo_2023-06-14_22-34-05.png

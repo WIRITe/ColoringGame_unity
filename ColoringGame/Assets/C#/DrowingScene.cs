@@ -1,65 +1,92 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrowingScene : MonoBehaviour
 {
-    public GameObject OneLayerPref;
-    public Color NowColor;
-    public Color colorToColoring;
-    public GameObject _gameCanvas;
+    public class Layer
+    {
+        public GameObject _object;
+        public int texWidth;
+        public int texHeight;
+        public Color32[] _pixels;
+        public bool isNeedToUpdate;
+    }
 
-    public float brushSize;
+    public GameObject OneLayerPref;
+    public Color32 NowColor;
+    public GameObject _gameCanvas;
+    public GameObject colorsCanv;
+    public int brushSize;
 
     public SpriteRenderer spriteRenderer;
     public Sprite _sprite;
     public Texture2D originalTexture;
 
-    public List<GameObject> coloringLayers = new List<GameObject>();
+    public List<Layer> coloringLayers = new List<Layer>();
+    public Dictionary<string, Color32> layerColors = new Dictionary<string, Color32>();
 
-    List<Color> _colors = new List<Color>();
+    public void Zoom(Slider _slider)
+    {
+        Camera.main.orthographicSize = _slider.value;
+    }
 
     public void StartGame(Picture _picture)
     {
         _gameCanvas.SetActive(true);
-        
+
         foreach (string layerPath in _picture.Layers)
         {
-            GameObject new_layer = Instantiate(OneLayerPref, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject new_layer = Instantiate(OneLayerPref, Vector3.zero, Quaternion.identity);
+            new_layer.transform.localScale = new Vector3(0.47f, 0.47f, 0.47f);
             new_layer.name = Path.GetFileNameWithoutExtension(layerPath);
 
             Texture2D _texture = FilesHandler.LoadTextureFromFile(layerPath);
-
             Sprite _sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), Vector2.one * 0.5f);
 
-            new_layer.GetComponent<SpriteRenderer>().sprite = _sprite;
-            new_layer.AddComponent<PolygonCollider2D>();
-            new_layer.GetComponent<PolygonCollider2D>().autoTiling = true;
-            new_layer.GetComponent<PolygonCollider2D>().isTrigger = true;
+            SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = _sprite;
+            new_layer.AddComponent<PolygonCollider2D>().isTrigger = true;
 
-            coloringLayers.Add(new_layer);
+            coloringLayers.Add(new Layer
+            {
+                _object = new_layer,
+                texWidth = _sprite.texture.width,
+                texHeight = _sprite.texture.height,
+                _pixels = _sprite.texture.GetPixels32()
+            });
 
             Color _color;
             if (ColorUtility.TryParseHtmlString("#" + new_layer.name, out _color))
             {
-                _colors.Add(_color);
+                layerColors.Add(new_layer.name, _color);
             }
         }
 
-        _gameCanvas.GetComponent<ColorsCanvas>().setButtons(_colors);
+        List<Color32> _colors = new List<Color32>();
 
-        foreach (Color _color in _colors)
+        foreach(Color32 _color in layerColors.Values)
         {
-            _gameCanvas.GetComponent<ColorsCanvas>().updateProcentage(_color, GetColoredPercentage(_color));
+            _colors.Add(_color);
+        }
+
+        colorsCanv.GetComponent<ColorsCanvas>().setButtons(_colors);
+
+        foreach (KeyValuePair<string, Color32> layerColor in layerColors)
+        {
+            colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(layerColor.Value, GetColoredPercentage(layerColor.Key));
         }
     }
 
     public void Set_nowColor(Color _color)
     {
-        NowColor = _color;
+        NowColor = (Color32)_color;
     }
 
     public GameObject firstPress;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -70,124 +97,116 @@ public class DrowingScene : MonoBehaviour
             if (hit.collider != null)
             {
                 firstPress = hit.collider.gameObject;
-
-                spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer = firstPress.GetComponent<SpriteRenderer>();
                 _sprite = spriteRenderer.sprite;
                 originalTexture = _sprite.texture;
             }
-
-            return;
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if(originalTexture!=null) _gameCanvas.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(NowColor));
+            if (originalTexture != null)colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(firstPress.name));
             firstPress = null;
-            return;
         }
         else if (Input.GetMouseButton(0))
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector3(0, 0, 1));
-
-            if (hit.collider != null)
+            if (firstPress != null)
             {
-                if (firstPress == null) return;
-
-                Debug.Log(firstPress.gameObject.name);
-                if (firstPress.gameObject.name == ColorUtility.ToHtmlStringRGB(NowColor))
+                if (firstPress.name == ColorUtility.ToHtmlStringRGB(NowColor))
                 {
-                    Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(hit.point);
-                    Bounds bounds = _sprite.bounds;
-
-                    float u = (localPosition.x - bounds.min.x) / bounds.size.x;
-                    float v = (localPosition.y - bounds.min.y) / bounds.size.y;
-
-                    int texWidth = originalTexture.width;
-                    int texHeight = originalTexture.height;
-
-                    int centerX = Mathf.FloorToInt(u * texWidth);
-                    int centerY = Mathf.FloorToInt(v * texHeight);
-
-                    Color[] pixels = originalTexture.GetPixels();
-                    int brushRadius = Mathf.FloorToInt(brushSize * 2.5f);
-
-                    for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
+                    Layer layer = coloringLayers.Find(l => l._object == firstPress);
+                    if (layer != null)
                     {
-                        for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
+                        Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                        Bounds bounds = _sprite.bounds;
+                        float u = (localPosition.x - bounds.min.x) / bounds.size.x;
+                        float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+
+                        int texWidth = layer.texWidth;
+                        int texHeight = layer.texHeight;
+
+                        int centerX = Mathf.FloorToInt(u * texWidth);
+                        int centerY = Mathf.FloorToInt(v * texHeight);
+                        int brushRadius = Mathf.FloorToInt(brushSize * 2.5f);
+
+                        for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
                         {
-                            if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
+                            for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
                             {
-                                int index = y * texWidth + x;
-
-                                float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
-
-                                if (distance <= brushRadius)
+                                if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
                                 {
-                                    if (pixels[index].a > 0.1f)
+                                    int index = y * texWidth + x;
+                                    float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
+
+                                    if (distance <= brushRadius && layer._pixels[index].a > 0.1f)
                                     {
-                                        pixels[index] = NowColor;
+                                        layer._pixels[index] = NowColor;
+                                        layer.isNeedToUpdate = true;
                                     }
                                 }
                             }
                         }
                     }
-
-                    originalTexture.SetPixels(pixels);
-                    originalTexture.Apply();
-
-                    _sprite = Sprite.Create(originalTexture, _sprite.rect, new Vector2(0.5f, 0.5f));
-                    spriteRenderer.sprite = _sprite;
                 }
             }
         }
+
+        StartCoroutine(UpdateTextures());
     }
 
-    public float GetColoredPercentage(Color _color)
+    private IEnumerator UpdateTextures()
     {
-        Texture2D _texture = null;
-
-        foreach(GameObject layer in coloringLayers)
+        foreach (Layer layer in coloringLayers)
         {
-            if(layer.name == ColorUtility.ToHtmlStringRGB(_color))
+            if (layer.isNeedToUpdate)
             {
-                _texture = layer.GetComponent<SpriteRenderer>().sprite.texture;
+                layer.isNeedToUpdate = false;
+                layer._object.GetComponent<SpriteRenderer>().sprite.texture.SetPixels32(layer._pixels);
+                layer._object.GetComponent<SpriteRenderer>().sprite.texture.Apply(false);
+
+                _sprite = Sprite.Create(layer._object.GetComponent<SpriteRenderer>().sprite.texture, _sprite.rect, new Vector2(0.5f, 0.5f));
+                layer._object.GetComponent<SpriteRenderer>().sprite = _sprite;
             }
         }
 
-        Color[] pixels = _texture.GetPixels();
-        int usualPixels = 0;
-        int coloredPixelCount = 0;
+        yield return null;
+    }
 
-        for (int i = 0; i < pixels.Length; i++)
+    public float GetColoredPercentage(string layerName)
+    {
+        if (layerColors.TryGetValue(layerName, out Color32 layerColor))
         {
-            if (pixels[i].a > 0.1f)
+            Layer layer = coloringLayers.Find(l => l._object.name == layerName);
+            if (layer != null)
             {
-                usualPixels++;
-                if(pixels[i] == NowColor)
+                Texture2D texture = layer._object.GetComponent<SpriteRenderer>().sprite.texture;
+                Color32[] pixels = texture.GetPixels32();
+                int coloredPixelCount = 0;
+
+                for (int i = 0; i < pixels.Length; i++)
                 {
-                    coloredPixelCount++;
+                    if (pixels[i].a > 0.1f && pixels[i].Equals(layerColor))
+                    {
+                        coloredPixelCount++;
+                    }
                 }
+
+                float coloredPercentage = (coloredPixelCount / (float)pixels.Length) * 100f;
+                return coloredPercentage;
             }
         }
 
-        Debug.Log("coloredPixelCount: " + coloredPixelCount.ToString());
-        Debug.Log("usualPixels: " + usualPixels.ToString());
-
-        float coloredPercentage = (float)((float)((float)coloredPixelCount / (float)usualPixels) * (float)100f);
-
-        Debug.Log("coloredPercentage: " + coloredPercentage);
-
-        return coloredPercentage;
+        return 0f;
     }
 
     public void SavePictures()
     {
 
     }
-    public static void SaveTextureAsPNG(Texture2D _texture, string _fullPath)
+
+    public static void SaveTextureAsPNG(Texture2D texture, string fullPath)
     {
-        byte[] _bytes = _texture.EncodeToPNG();
-        System.IO.File.WriteAllBytes(_fullPath, _bytes);
-        Debug.Log(_bytes.Length / 1024 + "Kb was saved as: " + _fullPath);
+        byte[] bytes = texture.EncodeToPNG();
+        File.WriteAllBytes(fullPath, bytes);
+        Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + fullPath);
     }
 }

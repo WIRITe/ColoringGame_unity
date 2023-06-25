@@ -11,9 +11,9 @@ public class ColorsCanvas : MonoBehaviour
 
     public List<GameObject> ColorButtons;
 
-    public void setButtons(List<Color> _colors)
+    public void setButtons(List<Color32> _colors)
     {
-        foreach (Color _color in _colors)
+        foreach (Color32 _color in _colors)
         {
             GameObject button_prefab = Instantiate(_buttonPrefab);
             button_prefab.transform.SetParent(gameObject.transform);
