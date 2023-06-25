@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     [Header("Pictures path")]
     public string folderPath = "Picturies";
 
-    public DrowingScene _table;
+    public DrawingScene _table;
 
     private void Start()
     {

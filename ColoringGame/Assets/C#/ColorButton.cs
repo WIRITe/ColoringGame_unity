@@ -8,7 +8,7 @@ public class ColorButton : MonoBehaviour
 
     public void SetColor()
     {
-        GameObject.FindGameObjectWithTag("Table").GetComponent<DrowingScene>().Set_nowColor(_color);
+        GameObject.FindGameObjectWithTag("Table").GetComponent<DrawingScene>().Set_nowColor(_color);
         GameObject.FindGameObjectWithTag("GameCanvas").GetComponent<ColorsCanvas>().SetColorActive(_color);
     }
 }

@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DrowingScene : MonoBehaviour
+public class DrawingScene : MonoBehaviour
 {
     public class Layer
     {
@@ -66,7 +66,7 @@ public class DrowingScene : MonoBehaviour
 
         List<Color32> _colors = new List<Color32>();
 
-        foreach(Color32 _color in layerColors.Values)
+        foreach (Color32 _color in layerColors.Values)
         {
             _colors.Add(_color);
         }
@@ -94,7 +94,9 @@ public class DrowingScene : MonoBehaviour
         }
     }
 
+
     public GameObject firstPress;
+    private Vector2 lastPoint;
 
     private void Update()
     {
@@ -109,6 +111,7 @@ public class DrowingScene : MonoBehaviour
                 spriteRenderer = firstPress.GetComponent<SpriteRenderer>();
                 _sprite = spriteRenderer.sprite;
                 originalTexture = _sprite.texture;
+                lastPoint = CalculateTextureCoordinates(mousePosition);
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -125,41 +128,76 @@ public class DrowingScene : MonoBehaviour
                     Layer layer = coloringLayers.Find(l => l._object == firstPress);
                     if (layer != null)
                     {
-                        Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                        Bounds bounds = _sprite.bounds;
-                        float u = (localPosition.x - bounds.min.x) / bounds.size.x;
-                        float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+                        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        Vector2 currentPoint = CalculateTextureCoordinates(mousePosition);
 
-                        int texWidth = layer.texWidth;
-                        int texHeight = layer.texHeight;
-
-                        int centerX = Mathf.FloorToInt(u * texWidth);
-                        int centerY = Mathf.FloorToInt(v * texHeight);
-                        int brushRadius = Mathf.FloorToInt(brushSize * 2.5f);
-
-                        for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
+                        float distance = Vector2.Distance(currentPoint, lastPoint);
+                        if (distance > brushSize)
                         {
-                            for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
+                            int steps = Mathf.CeilToInt(distance / brushSize);
+                            for (int i = 0; i < steps; i++)
                             {
-                                if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
-                                {
-                                    int index = y * texWidth + x;
-                                    float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
-
-                                    if (distance <= brushRadius && layer._pixels[index].a > 0.1f)
-                                    {
-                                        layer._pixels[index] = NowColor;
-                                        layer.isNeedToUpdate = true;
-                                    }
-                                }
+                                float t = i / (float)steps;
+                                Vector2 point = Vector2.Lerp(lastPoint, currentPoint, t);
+                                DrawPointOnTexture(layer, point);
                             }
                         }
+                        else
+                        {
+                            DrawPointOnTexture(layer, currentPoint);
+                        }
+
+                        lastPoint = currentPoint;
                     }
                 }
             }
         }
 
         StartCoroutine(UpdateTextures());
+    }
+
+    private Vector2 CalculateTextureCoordinates(Vector2 position)
+    {
+        Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(position);
+        Bounds bounds = _sprite.bounds;
+        float u = (localPosition.x - bounds.min.x) / bounds.size.x;
+        float v = (localPosition.y - bounds.min.y) / bounds.size.y;
+
+        int texWidth = originalTexture.width;
+        int texHeight = originalTexture.height;
+
+        int x = Mathf.FloorToInt(u * texWidth);
+        int y = Mathf.FloorToInt(v * texHeight);
+
+        return new Vector2(x, y);
+    }
+
+    private void DrawPointOnTexture(Layer layer, Vector2 point)
+    {
+        int texWidth = layer.texWidth;
+        int texHeight = layer.texHeight;
+        int brushRadius = Mathf.FloorToInt(brushSize * 2.5f);
+
+        int centerX = Mathf.FloorToInt(point.x);
+        int centerY = Mathf.FloorToInt(point.y);
+
+        for (int y = centerY - brushRadius; y <= centerY + brushRadius; y++)
+        {
+            for (int x = centerX - brushRadius; x <= centerX + brushRadius; x++)
+            {
+                if (x >= 0 && x < texWidth && y >= 0 && y < texHeight)
+                {
+                    int index = y * texWidth + x;
+                    float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
+
+                    if (distance <= brushRadius && layer._pixels[index].a > 0.1f)
+                    {
+                        layer._pixels[index] = NowColor;
+                        layer.isNeedToUpdate = true;
+                    }
+                }
+            }
+        }
     }
 
     private IEnumerator UpdateTextures()
