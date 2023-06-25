@@ -82,6 +82,16 @@ public class DrowingScene : MonoBehaviour
     public void Set_nowColor(Color _color)
     {
         NowColor = (Color32)_color;
+
+        foreach (Layer Layer in coloringLayers)
+        {
+            Layer._object.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+
+            if (Layer._object.name == ColorUtility.ToHtmlStringRGB(NowColor))
+            {
+                Layer._object.GetComponent<SpriteRenderer>().color = NowColor;
+            }
+        }
     }
 
     public GameObject firstPress;
