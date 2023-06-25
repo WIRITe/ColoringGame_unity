@@ -9,7 +9,6 @@ public class Picture : MonoBehaviour
 
     public string Name;
 
-    public List<string> StandartLayers = new List<string>();
-    public List<string> Layers = new List<string>();
-    public string MainImage;
+    public List<Texture2D> Layers = new List<Texture2D>();
+    public Texture2D MainImage;
 }

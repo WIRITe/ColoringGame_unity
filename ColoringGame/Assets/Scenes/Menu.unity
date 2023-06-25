@@ -498,7 +498,7 @@ MonoBehaviour:
     rgba: 0
   _gameCanvas: {fileID: 1236114333}
   colorsCanv: {fileID: 1702100271}
-  brushSize: 6
+  brushSize: 3
   spriteRenderer: {fileID: 0}
   _sprite: {fileID: 0}
   originalTexture: {fileID: 0}

@@ -37,14 +37,13 @@ public class DrowingScene : MonoBehaviour
     {
         _gameCanvas.SetActive(true);
 
-        foreach (string layerPath in _picture.Layers)
+        foreach (Texture2D layerPath in _picture.Layers)
         {
             GameObject new_layer = Instantiate(OneLayerPref, Vector3.zero, Quaternion.identity);
-            new_layer.transform.localScale = new Vector3(0.47f, 0.47f, 0.47f);
-            new_layer.name = Path.GetFileNameWithoutExtension(layerPath);
+            new_layer.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            new_layer.name = layerPath.name;
 
-            Texture2D _texture = FilesHandler.LoadTextureFromFile(layerPath);
-            Sprite _sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), Vector2.one * 0.5f);
+            Sprite _sprite = Sprite.Create(layerPath, new Rect(0, 0, layerPath.width, layerPath.height), Vector2.one * 0.5f);
 
             SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = _sprite;

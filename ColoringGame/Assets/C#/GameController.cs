@@ -31,9 +31,7 @@ public class GameController : MonoBehaviour
             instantiatedPref.transform.localScale = new Vector3(1, 1, 1);
             instantiatedPref.GetComponent<MenuButtonScript>()._picture = picture;
 
-            Texture2D _texture = FilesHandler.LoadTextureFromFile(picture.MainImage);
-
-            Sprite _sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), Vector2.one * 0.5f);
+            Sprite _sprite = Sprite.Create(picture.MainImage, new Rect(0, 0, picture.MainImage.width, picture.MainImage.height), Vector2.one * 0.5f);
 
             instantiatedPref.GetComponent<Image>().sprite = _sprite;
 
