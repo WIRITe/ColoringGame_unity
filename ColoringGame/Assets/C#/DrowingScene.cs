@@ -104,7 +104,7 @@ public class DrowingScene : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (originalTexture != null)colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(firstPress.name));
+            if (originalTexture != null) colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(firstPress.name));
             firstPress = null;
         }
         else if (Input.GetMouseButton(0))
@@ -162,9 +162,6 @@ public class DrowingScene : MonoBehaviour
                 layer.isNeedToUpdate = false;
                 layer._object.GetComponent<SpriteRenderer>().sprite.texture.SetPixels32(layer._pixels);
                 layer._object.GetComponent<SpriteRenderer>().sprite.texture.Apply(false);
-
-                _sprite = Sprite.Create(layer._object.GetComponent<SpriteRenderer>().sprite.texture, _sprite.rect, new Vector2(0.5f, 0.5f));
-                layer._object.GetComponent<SpriteRenderer>().sprite = _sprite;
             }
         }
 

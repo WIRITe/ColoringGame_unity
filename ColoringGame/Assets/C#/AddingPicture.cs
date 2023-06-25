@@ -29,40 +29,40 @@ public class AddingPicture : MonoBehaviour
     public string imagesPath = "Assets/PNGs/Images"; // Path to save the images
     public string originalsPath = "Assets/PNGs/ImagesOriginals"; // Path to save the original images
 
-    public void CreatePrefab()
-    {
-        SaveSprites();
+    //public void CreatePrefab()
+    //{
+    //    SaveSprites();
 
-        // Create the prefab root GameObject and add the Picture component
-        GameObject prefabRoot = new GameObject();
-        Picture pictureComponent = prefabRoot.AddComponent<Picture>();
+    //    // Create the prefab root GameObject and add the Picture component
+    //    GameObject prefabRoot = new GameObject();
+    //    Picture pictureComponent = prefabRoot.AddComponent<Picture>();
 
-        // Set the Picture component properties
-        Enums.ECategory category = GetSelectedCategory();
-        pictureComponent.Name = name_inputField.text;
-        pictureComponent.category = category;
-        pictureComponent.acess = Acess_toggle.isOn ? Enums.EAcess.Premium : Enums.EAcess.Free;
+    //    // Set the Picture component properties
+    //    Enums.ECategory category = GetSelectedCategory();
+    //    pictureComponent.Name = name_inputField.text;
+    //    pictureComponent.category = category;
+    //    pictureComponent.acess = Acess_toggle.isOn ? Enums.EAcess.Premium : Enums.EAcess.Free;
 
-        // Create child GameObjects for each layer sprite and assign SpriteRenderer components
-        foreach (string _path in LayersPathes)
-        {
-            pictureComponent.Layers.Add(_path);
-        }
+    //    // Create child GameObjects for each layer sprite and assign SpriteRenderer components
+    //    foreach (string _path in LayersPathes)
+    //    {
+    //        pictureComponent.Layers.Add(_path);
+    //    }
 
-        // Create child GameObjects for each original layer sprite and assign SpriteRenderer components
-        foreach (string _path in originalLayersPathes)
-        {
-            pictureComponent.StandartLayers.Add(_path);
-        }
+    //    // Create child GameObjects for each original layer sprite and assign SpriteRenderer components
+    //    foreach (string _path in originalLayersPathes)
+    //    {
+    //        pictureComponent.StandartLayers.Add(_path);
+    //    }
 
-        pictureComponent.MainImage = PreviewPath;
+    //    pictureComponent.MainImage = PreviewPath;
 
-        // Save the prefab
-        string prefabPath = "Assets/Resources/Picturies/" + pictureComponent.Name + ".prefab";
-        GameObject prefab = PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabPath);
+    //    // Save the prefab
+    //    string prefabPath = "Assets/Resources/Picturies/" + pictureComponent.Name + ".prefab";
+    //    GameObject prefab = PrefabUtility.SaveAsPrefabAsset(prefabRoot, prefabPath);
 
-        Debug.Log("Picture prefab saved at: " + prefabPath);
-    }
+    //    Debug.Log("Picture prefab saved at: " + prefabPath);
+    //}
 
 
     private Enums.ECategory GetSelectedCategory()
@@ -148,16 +148,16 @@ public class AddingPicture : MonoBehaviour
     ////////////\\\\\\\\\\\\\
     /// open file browser \\\
     ////////////\\\\\\\\\\\\\
-    public void GetLayersImages()
-    {
-        string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
-        HandleLayersFilePath(path);
-    }
-    public void GetPreviewImages()
-    {
-        string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
-        HandlePreviewFilePath(path);
-    }
+    //public void GetLayersImages()
+    //{
+    //    string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
+    //    HandleLayersFilePath(path);
+    //}
+    //public void GetPreviewImages()
+    //{
+    //    string path = EditorUtility.OpenFilePanel("Overwrite with png", "", "png,jpg,jpeg");
+    //    HandlePreviewFilePath(path);
+    //}
 
     //////////\\\\\\\\\\\
     /// handle pathes \\\

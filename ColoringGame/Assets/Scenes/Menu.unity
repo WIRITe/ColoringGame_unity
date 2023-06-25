@@ -2130,12 +2130,8 @@ MonoBehaviour:
   perspectiveZoomSpeed: 0.1
   orthoZoomSpeed: 0.03
   dragSpeed: 0.01
-  maxX: 3
-  maxY: 1.7
-  currentCamSize: 0
   isDragging_started: 0
-  _slider: {fileID: 1013388662}
-  mainCamera: {fileID: 0}
+  _slider: {fileID: 0}
 --- !u!1 &1702100271
 GameObject:
   m_ObjectHideFlags: 0
