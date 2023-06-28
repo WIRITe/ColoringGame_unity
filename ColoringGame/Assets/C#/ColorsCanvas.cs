@@ -66,4 +66,13 @@ public class ColorsCanvas : MonoBehaviour
             }
         }
     }
+
+    public void DestroyAllColors()
+    {
+        foreach(GameObject _obj in ColorButtons)
+        {
+            Destroy(_obj);
+        }
+        ColorButtons = new List<GameObject>();
+    }
 }
