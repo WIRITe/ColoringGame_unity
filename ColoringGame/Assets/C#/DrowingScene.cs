@@ -105,6 +105,7 @@ public class DrawingScene : MonoBehaviour
 
         foreach (Layer Layer in coloringLayers)
         {
+            for(int i = 0; i < Layer._pixels.Length; i++)
             {
                 if(Layer._pixels[i].a > 0.01f)
                 {
