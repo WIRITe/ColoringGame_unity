@@ -11,4 +11,6 @@ public class Picture : MonoBehaviour
 
     public List<Texture2D> Layers = new List<Texture2D>();
     public Texture2D MainImage;
+
+    public float imagescaleMultyplyer;
 }

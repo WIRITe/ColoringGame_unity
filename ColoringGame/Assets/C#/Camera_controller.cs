@@ -1,78 +1,68 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using SimpleTouchControl;
 
-/// <summary> A modular and easily customisable Unity MonoBehaviour for handling swipe and pinch motions on mobile. </summary>
 public class Camera_controller : MonoBehaviour
 {
-    public float perspectiveZoomSpeed = 0.1f;
-    public float orthoZoomSpeed = 0.03f;
-    public float dragSpeed = 0.01f;
+    public float zoomOutMin = 2f;
+    public float zoomOutMax = 5f;
+    public float panSpeed = 0.1f;
 
-    private const float constmaxX = 3.0f;
-    private const float constmaxY = 1.7f;
-    private const float minCamSize = 1.0f;
-    private const float maxCamSize = 2.7f;
+    private Vector2 initialTouchPosition;
+    public static bool isCameraMoving = false;
+    [Header("not passing area")]
+    public float minBoundaryX;
+    public float maxBoundaryX;
+    public float maxBoundaryY;
+    public float minBoundaryY;
 
-    private float maxX = 3.0f;
-    private float maxY = 1.7f;
-
-    private float currentCamSize;
-
-    public bool isDragging_started = false;
-
-    public Slider _slider;
-
-    private Camera mainCamera;
-
-    private void Start()
+    private void Update()
     {
-        mainCamera = Camera.main;
-        InputManager.Instance.onTouchMoved += moveCamera;
-        InputManager.Instance.onSingleTouch += start_dragging;
-        InputManager.Instance.onTouchEnded += end_draggind;
-    }
-
-    public void start_dragging()
-    {
-        isDragging_started = true;
-    }
-
-    public void end_draggind()
-    {
-        isDragging_started = false;
-    }
-
-    public void zoom_camera_handler()
-    {
-        mainCamera.orthographicSize = _slider.value;
-    }
-
-    void moveCamera(Vector2 touchDeltaPosition)
-    {
-        if (isDragging_started)
+        if (Input.touchCount == 2)
         {
-            mainCamera.transform.Translate(-touchDeltaPosition.x * dragSpeed, -touchDeltaPosition.y * dragSpeed, 0);
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
 
-            calculateMovedRange();
+            if (!isCameraMoving)
+            {
+                isCameraMoving = true;
+                initialTouchPosition = (touchZero.position + touchOne.position) * 0.5f;
+            }
+            else
+            {
+                Vector2 currentTouchPosition = (touchZero.position + touchOne.position) * 0.5f;
+                Vector2 panDirection = currentTouchPosition - initialTouchPosition;
+                PanCamera(panDirection);
+                initialTouchPosition = currentTouchPosition;
+            }
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            float difference = currentMagnitude - prevMagnitude;
+
+            Zoom(difference * 0.01f);
+        }
+        else
+        {
+            isCameraMoving = false;
         }
     }
-
-    void calculateMovedRange()
+    private void PanCamera(Vector2 panDirection)
     {
-        maxX = func(currentCamSize, maxCamSize, minCamSize, 0, constmaxX);
-        maxY = func(currentCamSize, maxCamSize, minCamSize, 0, constmaxY);
+        Vector3 desiredPan = new Vector3(-panDirection.x, -panDirection.y, 0f) * panSpeed * Time.deltaTime;
+        Vector3 newPosition = transform.position + desiredPan;
 
-        float x = Mathf.Clamp(mainCamera.transform.position.x, -maxX, maxX);
-        float y = Mathf.Clamp(mainCamera.transform.position.y, -maxY, maxY);
-        mainCamera.transform.position = new Vector3(x, y, -10);
+        // Apply boundary checks to restrict camera movement within an area
+        newPosition.x = Mathf.Clamp(newPosition.x, minBoundaryX, maxBoundaryX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minBoundaryY, maxBoundaryY);
+
+        transform.position = newPosition;
     }
 
-    float func(float currentA, float minA, float maxA, float minB, float maxB)
+    private void Zoom(float increment)
     {
-        return Mathf.Clamp((currentA - minA) / (maxA - minA) * (maxB - minB) + minB, minB, maxB);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomOutMin, zoomOutMax);
     }
 }

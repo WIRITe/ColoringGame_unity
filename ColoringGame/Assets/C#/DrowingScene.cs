@@ -11,7 +11,7 @@ public class DrawingScene : MonoBehaviour
         public GameObject _object;
         public int texWidth;
         public int texHeight;
-        public Color32[] _pixels;
+        public Color[] _pixels;
         public bool isNeedToUpdate;
     }
 
@@ -28,6 +28,10 @@ public class DrawingScene : MonoBehaviour
     public List<Layer> coloringLayers = new List<Layer>();
     public Dictionary<string, Color32> layerColors = new Dictionary<string, Color32>();
 
+    [Header("'a', on color change")]
+
+    public float on_chose_color;
+
     public void Zoom(Slider _slider)
     {
         Camera.main.orthographicSize = _slider.value;
@@ -39,28 +43,44 @@ public class DrawingScene : MonoBehaviour
 
         foreach (Texture2D layerPath in _picture.Layers)
         {
+
             GameObject new_layer = Instantiate(OneLayerPref, Vector3.zero, Quaternion.identity);
-            new_layer.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            new_layer.transform.localScale = new Vector3(_picture.imagescaleMultyplyer, _picture.imagescaleMultyplyer, _picture.imagescaleMultyplyer);
             new_layer.name = layerPath.name;
 
             Sprite _sprite = Sprite.Create(layerPath, new Rect(0, 0, layerPath.width, layerPath.height), Vector2.one * 0.5f);
 
             SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = _sprite;
+
+            Color color = spriteRenderer.color;
+            color.a = 1f;
+            spriteRenderer.color = color;
+
             new_layer.AddComponent<PolygonCollider2D>().isTrigger = true;
 
-            coloringLayers.Add(new Layer
+            Layer _layer = new Layer
             {
                 _object = new_layer,
                 texWidth = _sprite.texture.width,
                 texHeight = _sprite.texture.height,
-                _pixels = _sprite.texture.GetPixels32()
-            });
+                _pixels = _sprite.texture.GetPixels()
+            };
+
+            coloringLayers.Add(_layer);
 
             Color _color;
             if (ColorUtility.TryParseHtmlString("#" + new_layer.name, out _color))
             {
                 layerColors.Add(new_layer.name, _color);
+            }
+
+            for (int i = 0; i < _layer._pixels.Length; i++)
+            {
+                if (_layer._pixels[i].a > 0.01f)
+                {
+                    if(_layer._pixels[i].a != 0.6f) _layer._pixels[i].a = 0.6f;
+                }
             }
         }
 
@@ -75,22 +95,41 @@ public class DrawingScene : MonoBehaviour
 
         foreach (KeyValuePair<string, Color32> layerColor in layerColors)
         {
-            colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(layerColor.Value, GetColoredPercentage(layerColor.Key));
+            colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(layerColor.Value, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
         }
     }
 
     public void Set_nowColor(Color _color)
     {
-        NowColor = (Color32)_color;
+        NowColor = (Color)_color;
 
         foreach (Layer Layer in coloringLayers)
         {
-            Layer._object.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
-
+            {
+                if(Layer._pixels[i].a > 0.01f)
+                {
+                    if (Layer._pixels[i].a != 0.1f)
+                    {
+                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.1f;
+                    }
+                }
+            }
+            
             if (Layer._object.name == ColorUtility.ToHtmlStringRGB(NowColor))
             {
-                Layer._object.GetComponent<SpriteRenderer>().color = NowColor;
+                for (int i = 0; i < Layer._pixels.Length; i++)
+                {
+                    if (Layer._pixels[i].a > 0.01f)
+                    {
+                        if (Layer._pixels[i].a != 0.6f)
+                        {
+                            if (Layer._pixels[i].a < 1) Layer._pixels[i].a = 0.6f;
+                        }
+                    }
+                }
             }
+            
+            Layer.isNeedToUpdate = true;
         }
     }
 
@@ -100,6 +139,11 @@ public class DrawingScene : MonoBehaviour
 
     private void Update()
     {
+        if (Camera_controller.isCameraMoving)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -116,7 +160,7 @@ public class DrawingScene : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (originalTexture != null) colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(firstPress.name));
+            if (originalTexture != null) colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
             firstPress = null;
         }
         else if (Input.GetMouseButton(0))
@@ -190,9 +234,9 @@ public class DrawingScene : MonoBehaviour
                     int index = y * texWidth + x;
                     float distance = Vector2.Distance(new Vector2(x, y), new Vector2(centerX, centerY));
 
-                    if (distance <= brushRadius && layer._pixels[index].a > 0.1f)
+                    if (distance <= brushRadius && layer._pixels[index].a == 0.6f)
                     {
-                        layer._pixels[index] = NowColor;
+                        if(layer._pixels[index].a != 1) layer._pixels[index].a = 1;
                         layer.isNeedToUpdate = true;
                     }
                 }
@@ -207,7 +251,7 @@ public class DrawingScene : MonoBehaviour
             if (layer.isNeedToUpdate)
             {
                 layer.isNeedToUpdate = false;
-                layer._object.GetComponent<SpriteRenderer>().sprite.texture.SetPixels32(layer._pixels);
+                layer._object.GetComponent<SpriteRenderer>().sprite.texture.SetPixels(layer._pixels);
                 layer._object.GetComponent<SpriteRenderer>().sprite.texture.Apply(false);
             }
         }
@@ -217,28 +261,29 @@ public class DrawingScene : MonoBehaviour
 
     public float GetColoredPercentage(string layerName)
     {
-        if (layerColors.TryGetValue(layerName, out Color32 layerColor))
+        Layer layer = coloringLayers.Find(l => l._object.name == layerName);
+        if (layer != null)
         {
-            Layer layer = coloringLayers.Find(l => l._object.name == layerName);
-            if (layer != null)
-            {
-                Texture2D texture = layer._object.GetComponent<SpriteRenderer>().sprite.texture;
-                Color32[] pixels = texture.GetPixels32();
-                int coloredPixelCount = 0;
+            Color[] pixels = layer._pixels;
+            int coloredPixelCount = 0;
+            int pixelsCount = 0;
 
-                for (int i = 0; i < pixels.Length; i++)
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                if(pixels[i].a > 0.1f)
                 {
-                    if (pixels[i].a > 0.1f && pixels[i].Equals(layerColor))
+                    if (pixels[i].a == 1.0f)
                     {
                         coloredPixelCount++;
                     }
+                    pixelsCount++;
                 }
-
-                float coloredPercentage = (coloredPixelCount / (float)pixels.Length) * 100f;
-                return coloredPercentage;
             }
-        }
 
+            float coloredPercentage = (float)((float)coloredPixelCount / (float)pixelsCount) * 100f;
+            return coloredPercentage;
+        }
+        
         return 0f;
     }
 
@@ -252,5 +297,19 @@ public class DrawingScene : MonoBehaviour
         byte[] bytes = texture.EncodeToPNG();
         File.WriteAllBytes(fullPath, bytes);
         Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + fullPath);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (Layer Layer in coloringLayers)
+        {
+            for (int i = 0; i < Layer._pixels.Length; i++)
+            {
+                if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 1.0f;
+            }
+
+            Layer.isNeedToUpdate = true;
+        }
+        StartCoroutine(UpdateTextures());
     }
 }

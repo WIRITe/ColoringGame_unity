@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3775529427172088514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4227045485502544974}
+  - component: {fileID: 615237150382940598}
+  m_Layer: 0
+  m_Name: Bird
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4227045485502544974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775529427172088514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615237150382940598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775529427172088514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: 0
+  acess: 0
+  Name: Bird
+  Layers:
+  - {fileID: 2800000, guid: 205d1709840ffc0448cd4b6309147c73, type: 3}
+  - {fileID: 2800000, guid: 75cc1e9e2fc56ea4585ab3ec352d2e18, type: 3}
+  - {fileID: 2800000, guid: d746e6ba60e936a42bb36caa4b9069b1, type: 3}
+  - {fileID: 2800000, guid: bceec16ba60233b4b8797825bdfc4c22, type: 3}
+  - {fileID: 2800000, guid: c68d53780e3236d408687dbd4fd267c1, type: 3}
+  - {fileID: 2800000, guid: 693b2a02eb96d8f429459ced920ef842, type: 3}
+  - {fileID: 2800000, guid: fd132092d89f55a45890dd828c78ecb7, type: 3}
+  - {fileID: 2800000, guid: 00f7f306c00b88c48b5cf28417be65cf, type: 3}
+  - {fileID: 2800000, guid: 0549e162fe3ddaa42b9e506ca585362f, type: 3}
+  - {fileID: 2800000, guid: 42e42e2f8caba654e926497455053bd6, type: 3}
+  - {fileID: 2800000, guid: 69ef1dae60288834992c67a39dbca1bd, type: 3}
+  - {fileID: 2800000, guid: 1af4a99a13a891949a430869505e03b6, type: 3}
+  - {fileID: 2800000, guid: 0328dfa05a870d7408d59eeb2ffc92df, type: 3}
+  - {fileID: 2800000, guid: 77b4c1a470dffe546966a415b812aa2f, type: 3}
+  - {fileID: 2800000, guid: ae5300b9dff1a8c46a2c145abe91af50, type: 3}
+  MainImage: {fileID: 2800000, guid: d95ad79a7e600a0478751fb49d290a35, type: 3}
+  imagescaleMultyplyer: 0.8
