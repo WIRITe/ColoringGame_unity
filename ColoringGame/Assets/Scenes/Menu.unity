@@ -629,7 +629,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 0
   _gameCanvas: {fileID: 1236114333}
-  colorsCanv: {fileID: 1487862940}
+  colorsCanv: {fileID: 1487862944}
   brushSize: 3
   spriteRenderer: {fileID: 0}
   _sprite: {fileID: 0}

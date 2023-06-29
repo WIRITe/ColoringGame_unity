@@ -31,23 +31,50 @@ public class FileHandler : MonoBehaviour
 
         foreach (Texture2D _texture in _picture.Layers)
         {
-            byte[] defalt_textureData = _texture.EncodeToPNG();
-            string defalt_textureString = Convert.ToBase64String(defalt_textureData);
+            // Modify the alpha channel of defaultTextureData
+            Color[] defaultPixels = _texture.GetPixels();
+            for (int i = 0; i < defaultPixels.Length; i++)
+            {
+                if(defaultPixels[i].a > 0.01f) defaultPixels[i].a = 0.6f;
+            }
+
+            Texture2D texture = new Texture2D(_texture.width, _texture.height); // Create a temporary texture
+            texture.SetPixels(defaultPixels);
+            texture.Apply();
+
+            byte[] defaultTextureData = texture.EncodeToPNG();
+
+            string defaultTextureString = Convert.ToBase64String(defaultTextureData);
 
             string texturePath = path + _texture.name;
 
-            string textureString = PlayerPrefs.GetString(texturePath, defalt_textureString);
+            string textureString = PlayerPrefs.GetString(texturePath, defaultTextureString);
 
             byte[] textureData = Convert.FromBase64String(textureString);
 
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(textureData);
-            texture.name = _texture.name;
+            Texture2D texture2 = new Texture2D(2, 2);
+            texture2.LoadImage(textureData);
+            texture2.name = _texture.name;
 
-            _textures.Add(texture);
+            _textures.Add(texture2);
         }
 
         return _textures;
     }
+
+    public static bool deleteAllSavings(Picture _picture)
+    {
+        string path = _picture.Name + ": ";
+
+        foreach (Texture2D _texture in _picture.Layers)
+        {
+            string texturePath = path + _texture.name;
+
+            PlayerPrefs.DeleteKey(texturePath);
+        }
+
+        return true;
+    }
+
     #endregion
 }

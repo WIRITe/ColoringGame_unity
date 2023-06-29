@@ -63,5 +63,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: af99e5e82993cd74084157e01e47885d, type: 3}
   - {fileID: 2800000, guid: fe8b6ff016b1a3743a8fca940b7c6081, type: 3}
   - {fileID: 2800000, guid: fb44d4a9b0d14c24796b034a5c1f3f19, type: 3}
+  - {fileID: 2800000, guid: 665dc221909f9084390e4869cb5eb45f, type: 3}
   MainImage: {fileID: 2800000, guid: f7d3ef23367456f49ae2b59592a6c351, type: 3}
   imagescaleMultyplyer: 1

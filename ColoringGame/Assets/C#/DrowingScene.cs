@@ -13,6 +13,7 @@ public class DrawingScene : MonoBehaviour
         public GameObject _object;
         public int texWidth;
         public int texHeight;
+        public Color[] _originalPixels;
         public Color[] _pixels;
         public bool isNeedToUpdate;
     }
@@ -20,7 +21,7 @@ public class DrawingScene : MonoBehaviour
     public GameObject OneLayerPref;
     public Color32 NowColor;
     public GameObject _gameCanvas;
-    public GameObject colorsCanv;
+    public ColorsCanvas colorsCanv;
     public int brushSize;
 
     public SpriteRenderer spriteRenderer;
@@ -45,29 +46,38 @@ public class DrawingScene : MonoBehaviour
 
         for (int i = 0; i < _picture.Layers.Count; i++)
         {
+            Sprite _originalSprite = Sprite.Create(_picture.Layers[i], new Rect(0, 0, _picture.Layers[i].width, _picture.Layers[i].height), Vector2.one * 0.5f);
+            _originalSprite.name = "original sprite";
+            Sprite _savedSprite = Sprite.Create(_picture_textures[i], new Rect(0, 0, _picture_textures[i].width, _picture_textures[i].height), Vector2.one * 0.5f);
+            _savedSprite.name = "saved sprite: " + _picture_textures[i].name;
+
             GameObject new_layer = Instantiate(OneLayerPref, Vector3.zero, Quaternion.identity);
             new_layer.transform.localScale = new Vector3(_picture.imagescaleMultyplyer, _picture.imagescaleMultyplyer, _picture.imagescaleMultyplyer);
             new_layer.name = _picture.Layers[i].name;
 
-            Sprite _spriteBasic = Sprite.Create(_picture.Layers[i], new Rect(0, 0, _picture.Layers[i].width, _picture.Layers[i].height), Vector2.one * 0.5f);
-
-            SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = _spriteBasic;
-
-            new_layer.AddComponent<PolygonCollider2D>().isTrigger = true;
-
-
-            Sprite _spriteSaved = Sprite.Create(_picture_textures[i], new Rect(0, 0, _picture_textures[i].width, _picture_textures[i].height), Vector2.one * 0.5f);
-
-            spriteRenderer.sprite = _spriteSaved;
-
             Layer _layer = new Layer
             {
                 _object = new_layer,
-                texWidth = _spriteSaved.texture.width,
-                texHeight = _spriteSaved.texture.height,
-                _pixels = _spriteSaved.texture.GetPixels()
+                texWidth = _originalSprite.texture.width,
+                texHeight = _originalSprite.texture.height,
+                _pixels = _savedSprite.texture.GetPixels(),
+                _originalPixels = _originalSprite.texture.GetPixels(),
+                isNeedToUpdate = true
             };
+
+            SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
+
+            // add polygon collider component \\
+            spriteRenderer.sprite = _originalSprite;
+            Color[] _pixels = spriteRenderer.sprite.texture.GetPixels();
+            for(int o = 0; o < _pixels.Length; o++)
+            {
+                if(_pixels[o].a > 0.1f) _pixels[o].a = 10.0f;
+            }
+            spriteRenderer.sprite.texture.SetPixels(_pixels);
+            new_layer.AddComponent<PolygonCollider2D>();
+
+            spriteRenderer.sprite = _savedSprite;
 
             coloringLayers.Add(_layer);
 
@@ -77,31 +87,19 @@ public class DrawingScene : MonoBehaviour
                 layerColors.Add(new_layer.name, _color);
             }
 
-            for (int j = 0; j < _layer._pixels.Length; j++)
-            {
-                if (_layer._pixels[j].a > 0.01f)
-                {
-                    if (_layer._pixels[j].a != 0.6f)
-                    {
-                        if (_layer._pixels[j].a == 1.0f) _layer._pixels[j].a = 0.6f;
-                    }
-                }
-            }
             _layer.isNeedToUpdate = true;
         }
 
         List<Color32> _colors = new List<Color32>();
-
         foreach (Color32 _color in layerColors.Values)
         {
             _colors.Add(_color);
         }
 
-        colorsCanv.GetComponent<ColorsCanvas>().setButtons(_colors);
-
+        colorsCanv.setButtons(_colors);
         foreach (KeyValuePair<string, Color32> layerColor in layerColors)
         {
-            colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(layerColor.Value, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
+            colorsCanv.updateProcentage(layerColor.Value, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
         }
     }
 
@@ -113,12 +111,9 @@ public class DrawingScene : MonoBehaviour
         {
             for (int i = 0; i < Layer._pixels.Length; i++)
             {
-                if (Layer._pixels[i].a > 0.01f)
+                if (Layer._pixels[i].a > 0.1f)
                 {
-                    if (Layer._pixels[i].a != 0.1f)
-                    {
-                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.1f;
-                    }
+                    if(Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.1f;
                 }
             }
 
@@ -128,10 +123,7 @@ public class DrawingScene : MonoBehaviour
                 {
                     if (Layer._pixels[i].a > 0.01f)
                     {
-                        if (Layer._pixels[i].a != 0.6f)
-                        {
-                            if (Layer._pixels[i].a < 1) Layer._pixels[i].a = 0.6f;
-                        }
+                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.6f;
                     }
                 }
             }
@@ -167,7 +159,7 @@ public class DrawingScene : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (originalTexture != null) colorsCanv.GetComponent<ColorsCanvas>().updateProcentage(NowColor, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
+            if (originalTexture != null) colorsCanv.updateProcentage(NowColor, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
             firstPress = null;
         }
         else if (Input.GetMouseButton(0))
@@ -302,7 +294,7 @@ public class DrawingScene : MonoBehaviour
 
     public void fromBeginning()
     {
-        FileHandler.savePicture(_nowPicture);
+        FileHandler.deleteAllSavings(_nowPicture);
 
         foreach (Layer _layer in coloringLayers)
         {
@@ -316,14 +308,16 @@ public class DrawingScene : MonoBehaviour
 
     public void Exit()
     {
-        _nowPicture.Layers = new List<Texture2D>();
+        Picture pictureToSave = new Picture();
+
+        pictureToSave.Name = _nowPicture.Name;
 
         foreach (Layer _layer in coloringLayers)
         {
-            _nowPicture.Layers.Add(_layer._object.GetComponent<SpriteRenderer>().sprite.texture);
+            pictureToSave.Layers.Add(_layer._object.GetComponent<SpriteRenderer>().sprite.texture);
         }
 
-        FileHandler.savePicture(_nowPicture);
+        FileHandler.savePicture(pictureToSave);
         _nowPicture = null;
 
 
@@ -336,16 +330,8 @@ public class DrawingScene : MonoBehaviour
 
         colorsCanv.GetComponent<ColorsCanvas>().DestroyAllColors();
     }
-
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
-        _nowPicture.Layers = new List<Texture2D>();
-
-        foreach (Layer _layer in coloringLayers)
-        {
-            _nowPicture.Layers.Add(_layer._object.GetComponent<SpriteRenderer>().sprite.texture);
-        }
-
-        FileHandler.savePicture(_nowPicture);
+        Exit();
     }
 }

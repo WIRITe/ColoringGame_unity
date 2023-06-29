@@ -38,7 +38,6 @@ public class ColorsCanvas : MonoBehaviour
             {
                 StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
 
-                Debug.Log("move obj");
             }
         }
     }
