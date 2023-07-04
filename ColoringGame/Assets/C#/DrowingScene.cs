@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DrawingScene : MonoBehaviour
@@ -11,11 +12,14 @@ public class DrawingScene : MonoBehaviour
     public class Layer
     {
         public GameObject _object;
+        public SpriteRenderer _spriteRenderer;
         public int texWidth;
         public int texHeight;
         public Color[] _originalPixels;
         public Color[] _pixels;
         public bool isNeedToUpdate;
+
+        public float colored_procentage;
     }
 
     public GameObject OneLayerPref;
@@ -31,9 +35,14 @@ public class DrawingScene : MonoBehaviour
     public List<Layer> coloringLayers = new List<Layer>();
     public Dictionary<string, Color32> layerColors = new Dictionary<string, Color32>();
 
+    public delegate void picture_is_colored();
+    public static event picture_is_colored picture_is_colored_event;
+
     [Header("'a', on color change")]
 
     public float on_chose_color;
+
+    public Vector2 lastPoint;
 
     public void StartGame(Picture _picture)
     {
@@ -58,6 +67,7 @@ public class DrawingScene : MonoBehaviour
             Layer _layer = new Layer
             {
                 _object = new_layer,
+                _spriteRenderer = new_layer.GetComponent<SpriteRenderer>(),
                 texWidth = _originalSprite.texture.width,
                 texHeight = _originalSprite.texture.height,
                 _pixels = _savedSprite.texture.GetPixels(),
@@ -97,10 +107,8 @@ public class DrawingScene : MonoBehaviour
         }
 
         colorsCanv.setButtons(_colors);
-        foreach (KeyValuePair<string, Color32> layerColor in layerColors)
-        {
-            colorsCanv.updateProcentage(layerColor.Value, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
-        }
+
+        is_picture_colored(coloringLayers);
     }
 
     public void Set_nowColor(Color _color)
@@ -132,66 +140,43 @@ public class DrawingScene : MonoBehaviour
         }
     }
 
-
-    public GameObject firstPress;
-    private Vector2 lastPoint;
-
     private void Update()
     {
         if (Camera_controller.isCameraMoving)
         {
             return;
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-            if (hit.collider != null)
-            {
-                firstPress = hit.collider.gameObject;
-                spriteRenderer = firstPress.GetComponent<SpriteRenderer>();
-                _sprite = spriteRenderer.sprite;
-                originalTexture = _sprite.texture;
-                lastPoint = CalculateTextureCoordinates(mousePosition);
-            }
-        }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (originalTexture != null) colorsCanv.updateProcentage(NowColor, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
-            firstPress = null;
+            if (is_picture_colored(coloringLayers))
+            {
+                picture_is_colored_event?.Invoke();
+                FileHandler.set_picture_coloring_state(_nowPicture);
+            }
         }
         else if (Input.GetMouseButton(0))
         {
-            if (firstPress != null)
+            Layer layer = coloringLayers.Find(l => l._object.name == ColorUtility.ToHtmlStringRGB(NowColor));
+
+            if (layer != null)
             {
-                if (firstPress.name == ColorUtility.ToHtmlStringRGB(NowColor))
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 currentPoint = CalculateTextureCoordinates(mousePosition, layer);
+
+                float distance = Vector2.Distance(currentPoint, lastPoint);
+                if (distance > brushSize)
                 {
-                    Layer layer = coloringLayers.Find(l => l._object == firstPress);
-                    if (layer != null)
+                    int steps = Mathf.CeilToInt(distance / brushSize);
+                    for (int i = 0; i < steps; i++)
                     {
-                        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        Vector2 currentPoint = CalculateTextureCoordinates(mousePosition);
-
-                        float distance = Vector2.Distance(currentPoint, lastPoint);
-                        if (distance > brushSize)
-                        {
-                            int steps = Mathf.CeilToInt(distance / brushSize);
-                            for (int i = 0; i < steps; i++)
-                            {
-                                float t = i / (float)steps;
-                                Vector2 point = Vector2.Lerp(lastPoint, currentPoint, t);
-                                DrawPointOnTexture(layer, point);
-                            }
-                        }
-                        else
-                        {
-                            DrawPointOnTexture(layer, currentPoint);
-                        }
-
-                        lastPoint = currentPoint;
+                        float t = i / (float)steps;
+                        Vector2 point = Vector2.Lerp(lastPoint, currentPoint, t);
+                        DrawPointOnTexture(layer, point);
                     }
+                }
+                else
+                {
+                    DrawPointOnTexture(layer, currentPoint);
                 }
             }
         }
@@ -203,15 +188,15 @@ public class DrawingScene : MonoBehaviour
     /// Draw \\\
     //////\\\\\\
 
-    private Vector2 CalculateTextureCoordinates(Vector2 position)
+    private Vector2 CalculateTextureCoordinates(Vector2 position, Layer _layer)
     {
-        Vector2 localPosition = spriteRenderer.transform.InverseTransformPoint(position);
-        Bounds bounds = _sprite.bounds;
+        Vector2 localPosition = _layer._spriteRenderer.transform.InverseTransformPoint(position);
+        Bounds bounds = _layer._spriteRenderer.sprite.bounds;
         float u = (localPosition.x - bounds.min.x) / bounds.size.x;
         float v = (localPosition.y - bounds.min.y) / bounds.size.y;
 
-        int texWidth = originalTexture.width;
-        int texHeight = originalTexture.height;
+        int texWidth = _layer.texWidth;
+        int texHeight = _layer.texHeight;
 
         int x = Mathf.FloorToInt(u * texWidth);
         int y = Mathf.FloorToInt(v * texHeight);
@@ -245,6 +230,8 @@ public class DrawingScene : MonoBehaviour
                 }
             }
         }
+
+        if(point.x >= 0 && point.y >= 0) lastPoint = point;
     }
 
     private IEnumerator UpdateTextures()
@@ -262,18 +249,18 @@ public class DrawingScene : MonoBehaviour
         yield return null;
     }
 
-    public float GetColoredPercentage(string layerName)
+    public bool is_picture_colored(List<Layer> _picture)
     {
-        Layer layer = coloringLayers.Find(l => l._object.name == layerName);
-        if (layer != null)
+        int coloredPixelCount = 0;
+        int pixelsCount = 0;
+
+        foreach(Layer layer in _picture)
         {
             Color[] pixels = layer._pixels;
-            int coloredPixelCount = 0;
-            int pixelsCount = 0;
 
             for (int i = 0; i < pixels.Length; i++)
             {
-                if (pixels[i].a > 0.1f)
+                if (pixels[i].a > 0.01f)
                 {
                     if (pixels[i].a == 1.0f)
                     {
@@ -282,19 +269,20 @@ public class DrawingScene : MonoBehaviour
                     pixelsCount++;
                 }
             }
-
-            float coloredPercentage = (float)((float)coloredPixelCount / (float)pixelsCount) * 100f;
-            return coloredPercentage;
         }
 
-        return 0f;
+        float coloredPercentage = (float)((float)coloredPixelCount / (float)pixelsCount);
+
+        Debug.Log("coloredPercentage: " + coloredPercentage.ToString());
+
+        if (coloredPercentage >= 0.7) return true;
+        return false;
     }
-
-
 
     public void fromBeginning()
     {
         FileHandler.deleteAllSavings(_nowPicture);
+        FileHandler.set_picture_coloring_state(_nowPicture, false);
 
         foreach (Layer _layer in coloringLayers)
         {
@@ -302,6 +290,8 @@ public class DrawingScene : MonoBehaviour
         }
 
         coloringLayers = new List<Layer>();
+
+        colorsCanv.DestroyAllColors();
 
         StartGame(_nowPicture);
     }
@@ -320,15 +310,14 @@ public class DrawingScene : MonoBehaviour
         FileHandler.savePicture(pictureToSave);
         _nowPicture = null;
 
-
-        foreach (Layer _layer in coloringLayers)
+        foreach(Layer _layer in coloringLayers)
         {
             Destroy(_layer._object);
         }
 
-        coloringLayers = new List<Layer>();
+        colorsCanv.DestroyAllColors();
 
-        colorsCanv.GetComponent<ColorsCanvas>().DestroyAllColors();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void OnApplicationQuit()
     {

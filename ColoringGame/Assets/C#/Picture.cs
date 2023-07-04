@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Picture : MonoBehaviour
 {
-    public Enums.ECategory category;
+    public string category;
     public Enums.EAcess acess;
 
     public string Name;

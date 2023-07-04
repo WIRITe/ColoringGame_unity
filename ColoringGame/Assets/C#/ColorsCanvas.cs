@@ -7,9 +7,15 @@ using System;
 
 public class ColorsCanvas : MonoBehaviour
 {
+    public class _color
+    {
+        public GameObject _button;
+        public float procent = 0.0f;
+    }
+
     public GameObject _buttonPrefab;
 
-    public List<GameObject> ColorButtons;
+    public List<_color> ColorButtons = new List<_color>();
 
     public void setButtons(List<Color32> _colors)
     {
@@ -24,29 +30,31 @@ public class ColorsCanvas : MonoBehaviour
             button_prefab.name = ColorUtility.ToHtmlStringRGB(_color);
             button_prefab.GetComponent<ColorButton>()._color = _color;
 
-            ColorButtons.Add(button_prefab);
+            _color color = new _color();
+            color._button = button_prefab;
+
+            ColorButtons.Add(color);
         }
     }
 
     public void SetColorActive(Color _color)
     {
         SetAllNotActive();
-        foreach (GameObject colorButton in ColorButtons)
+        foreach (_color colorButton in ColorButtons)
         {
             
-            if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            if(colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
-                StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
-
+                StartCoroutine(scaleObj(colorButton._button.transform.Find("Button").gameObject, 1.2f, 0.5f));
             }
         }
     }
 
     public void SetAllNotActive()
     {
-        foreach(GameObject colorButton in ColorButtons)
+        foreach(_color colorButton in ColorButtons)
         {
-            StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1, 0.5f));
+            StartCoroutine(scaleObj(colorButton._button.transform.Find("Button").gameObject, 1, 0.5f));
         }
     }
 
@@ -57,21 +65,22 @@ public class ColorsCanvas : MonoBehaviour
 
     public void updateProcentage(Color _color, float procentage)
     {
-        foreach (GameObject colorButton in ColorButtons)
+        foreach (_color colorButton in ColorButtons)
         {
-            if (colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            if (colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
-                colorButton.transform.Find("procentageText").GetComponent<TMP_Text>().text = Math.Round(procentage, 2).ToString() + " %";
+                colorButton.procent = procentage;
             }
         }
     }
 
     public void DestroyAllColors()
     {
-        foreach(GameObject _obj in ColorButtons)
+        foreach (Transform child in gameObject.transform)
         {
-            Destroy(_obj);
+            Destroy(child.gameObject);
         }
-        ColorButtons = new List<GameObject>();
+
+        ColorButtons = new List<_color>();
     }
 }
