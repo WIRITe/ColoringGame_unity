@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Picture;
 
@@ -16,12 +15,17 @@ public class GameController : MonoBehaviour
     [Header("Menu objects")]
     public GameObject loadingScreen;
     public GameObject ImageButtonPref;
+<<<<<<< HEAD
+=======
+    public GameObject MenuScreen;
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 
     [Header("Pictures path")]
     public string[] folderPathes;
 
     public DrowingScene drowingScene;
 
+<<<<<<< HEAD
     [Header("categorys screen")]
     public GameObject categorys_parrentObject;
     public GameObject category_screen_prefab;
@@ -39,9 +43,28 @@ public class GameController : MonoBehaviour
             instantiatedPref.GetComponent<MenuButtonScript>().Init(picture);
             set_buttonCategory(instantiatedPref);
 
+=======
+    private void Start()
+    {
+        List<Picture> Pictures = GetPictures();
+
+        foreach (Picture picture in Pictures)
+        {
+            GameObject instantiatedPref = Instantiate(ImageButtonPref);
+
+            instantiatedPref.transform.SetParent(MenuScreen.transform);
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
             instantiatedPref.transform.localScale = new Vector3(1, 1, 1);
 
+<<<<<<< HEAD
             picturesDictionary.Add(picture, instantiatedPref);
+=======
+            Sprite _sprite = Sprite.Create(picture.MainImage, new Rect(0, 0, picture.MainImage.width, picture.MainImage.height), Vector2.one * 0.5f);
+
+            instantiatedPref.GetComponent<Image>().sprite = _sprite;
+
+            instantiatedPref.transform.Find("Name").GetComponent<TMP_Text>().text = picture.Name;
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
         }
     }
     public async void StartColoring(Picture _picture)
@@ -52,7 +75,11 @@ public class GameController : MonoBehaviour
         MenuCanvas.SetActive(false);
     }
 
+<<<<<<< HEAD
     public void start_coloringFromBeginning()
+=======
+    public List<Picture> GetPictures()
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
     {
         drowingScene.deleteEverything();
 

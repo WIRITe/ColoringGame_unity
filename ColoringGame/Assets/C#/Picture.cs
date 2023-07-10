@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class Picture : MonoBehaviour
 {
+<<<<<<< HEAD
     public string category;
     public EAcess acess;
+=======
+    public Enums.ECategory category;
+    public Enums.EAcess acess;
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 
     public string Name;
 

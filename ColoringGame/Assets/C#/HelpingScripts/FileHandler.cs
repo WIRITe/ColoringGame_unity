@@ -105,6 +105,7 @@ public class FileHandler : MonoBehaviour
 
         return _textures;
     }
+
     public static bool deleteAllSavings(Picture _picture)
     {
         string path = _picture.Name + ": ";
@@ -118,19 +119,6 @@ public class FileHandler : MonoBehaviour
 
         return true;
     }
-    public static void set_picture_coloring_state(Picture _picture, bool is_colored = true)
-    {
-        string path = _picture.Name + " - is colored?";
 
-        PlayerPrefs.SetInt(path, is_colored ? 1 : 0);
-    }
-    public static bool is_picture_colored(Picture _picture)
-    {
-        string path = _picture.Name + " - is colored?";
-
-        bool is_colored = PlayerPrefs.GetInt(path, 0) == 1 ? true : false;
-
-        return is_colored;
-    }
     #endregion
 }

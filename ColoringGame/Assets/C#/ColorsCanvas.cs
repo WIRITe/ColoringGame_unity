@@ -9,7 +9,11 @@ public class ColorsCanvas : MonoBehaviour
 {
     public GameObject _buttonPrefab;
 
+<<<<<<< HEAD
     public List<GameObject> ColorButtons = new List<GameObject>();
+=======
+    public List<GameObject> ColorButtons;
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 
     public void setButtons(List<Color32> _colors)
     {
@@ -32,9 +36,17 @@ public class ColorsCanvas : MonoBehaviour
         SetAllNotActive();
         foreach (GameObject colorButton in ColorButtons)
         {
+<<<<<<< HEAD
             if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
                 StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
+=======
+            
+            if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            {
+                StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
+
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
             }
         }
     }
@@ -52,13 +64,30 @@ public class ColorsCanvas : MonoBehaviour
         yield return LeanTween.scale(_object, new Vector3(To, To, To), Time);
     }
 
+<<<<<<< HEAD
+=======
+    public void updateProcentage(Color _color, float procentage)
+    {
+        foreach (GameObject colorButton in ColorButtons)
+        {
+            if (colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            {
+                colorButton.transform.Find("procentageText").GetComponent<TMP_Text>().text = Math.Round(procentage, 2).ToString() + " %";
+            }
+        }
+    }
+
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
     public void DestroyAllColors()
     {
-        foreach (Transform child in gameObject.transform)
+        foreach(GameObject _obj in ColorButtons)
         {
-            Destroy(child.gameObject);
+            Destroy(_obj);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
         ColorButtons = new List<GameObject>();
     }
 }

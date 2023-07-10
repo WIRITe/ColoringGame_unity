@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: Animals
+  category: 0
   acess: 0
   Name: Bird
   Layers:
