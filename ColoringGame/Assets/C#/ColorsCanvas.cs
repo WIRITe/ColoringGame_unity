@@ -7,22 +7,15 @@ using System;
 
 public class ColorsCanvas : MonoBehaviour
 {
-    public class _color
-    {
-        public GameObject _button;
-        public float procent = 0.0f;
-    }
-
     public GameObject _buttonPrefab;
 
-    public List<_color> ColorButtons = new List<_color>();
+    public List<GameObject> ColorButtons = new List<GameObject>();
 
     public void setButtons(List<Color32> _colors)
     {
         foreach (Color32 _color in _colors)
         {
-            GameObject button_prefab = Instantiate(_buttonPrefab);
-            button_prefab.transform.SetParent(gameObject.transform);
+            GameObject button_prefab = Instantiate(_buttonPrefab, gameObject.transform);
 
             button_prefab.transform.localScale = new Vector3(1, 1, 1);
 
@@ -30,48 +23,33 @@ public class ColorsCanvas : MonoBehaviour
             button_prefab.name = ColorUtility.ToHtmlStringRGB(_color);
             button_prefab.GetComponent<ColorButton>()._color = _color;
 
-            _color color = new _color();
-            color._button = button_prefab;
-
-            ColorButtons.Add(color);
+            ColorButtons.Add(button_prefab);
         }
     }
 
     public void SetColorActive(Color _color)
     {
         SetAllNotActive();
-        foreach (_color colorButton in ColorButtons)
+        foreach (GameObject colorButton in ColorButtons)
         {
-            
-            if(colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
-                StartCoroutine(scaleObj(colorButton._button.transform.Find("Button").gameObject, 1.2f, 0.5f));
+                StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
             }
         }
     }
 
     public void SetAllNotActive()
     {
-        foreach(_color colorButton in ColorButtons)
+        foreach(GameObject colorButton in ColorButtons)
         {
-            StartCoroutine(scaleObj(colorButton._button.transform.Find("Button").gameObject, 1, 0.5f));
+            StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1, 0.5f));
         }
     }
 
     public IEnumerator scaleObj(GameObject _object, float To, float Time)
     {
         yield return LeanTween.scale(_object, new Vector3(To, To, To), Time);
-    }
-
-    public void updateProcentage(Color _color, float procentage)
-    {
-        foreach (_color colorButton in ColorButtons)
-        {
-            if (colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
-            {
-                colorButton.procent = procentage;
-            }
-        }
     }
 
     public void DestroyAllColors()
@@ -81,6 +59,6 @@ public class ColorsCanvas : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        ColorButtons = new List<_color>();
+        ColorButtons = new List<GameObject>();
     }
 }

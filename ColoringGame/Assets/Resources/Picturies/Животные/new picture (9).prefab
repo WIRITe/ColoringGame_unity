@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3631597458212702476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565786360987709647}
+  - component: {fileID: 7338105746009853296}
+  m_Layer: 0
+  m_Name: new picture (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565786360987709647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631597458212702476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7338105746009853296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631597458212702476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: "\u0416\u0438\u0432\u043E\u0442\u043D\u044B\u0435"
+  acess: 0
+  Name: "\u0417\u0435\u0431\u0440\u0430"
+  Layers:
+  - {fileID: 2800000, guid: 3a3a567f88d412147a6070027a000e19, type: 3}
+  - {fileID: 2800000, guid: f8fa1111c6dcefd489fc0ff9a9d5e6e7, type: 3}
+  - {fileID: 2800000, guid: bb40dcd69d763654287f92b8b794f3cc, type: 3}
+  - {fileID: 2800000, guid: 4dcb21183a3364345957e82b7b6eb9c5, type: 3}
+  - {fileID: 2800000, guid: 219622ae0033809438472eac06737bfb, type: 3}
+  - {fileID: 2800000, guid: a8b1e5d4b3a547040af1f9ed638cede8, type: 3}
+  - {fileID: 2800000, guid: 2bbc379d1a9ee354bb50511c20bb36f8, type: 3}
+  MainImage: {fileID: 2800000, guid: cb3a346f6801ae34cb5dab85c531dce9, type: 3}
+  imagescaleMultyplyer: 1

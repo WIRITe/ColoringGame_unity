@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6374373232864345093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1573053358951430235}
+  - component: {fileID: 646981592530598350}
+  m_Layer: 0
+  m_Name: new picture (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1573053358951430235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374373232864345093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646981592530598350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374373232864345093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: "\u0422\u0435\u0445\u043D\u0438\u043A\u0430"
+  acess: 0
+  Name: "\u0422\u0435\u0445\u043D\u0438\u043A\u04302"
+  Layers:
+  - {fileID: 2800000, guid: fa8d4992b8c2b894e906bca43a1d8f2b, type: 3}
+  - {fileID: 2800000, guid: 2ce51030746b62c4bb0cdd8f37b06f1b, type: 3}
+  - {fileID: 2800000, guid: c411892f25c0456448a689324636d1d4, type: 3}
+  - {fileID: 2800000, guid: 76c5502fcbe07074681e4dbffdaec25c, type: 3}
+  - {fileID: 2800000, guid: b460bc4a9306e9f42a53b9de8fb08a6f, type: 3}
+  - {fileID: 2800000, guid: f462f5aa073984e44a2304fee227fdf4, type: 3}
+  - {fileID: 2800000, guid: 3cbe63a71112c734087408dc6aca47bb, type: 3}
+  - {fileID: 2800000, guid: 06c4cb81f3a01d841a11c492c446da67, type: 3}
+  - {fileID: 2800000, guid: e6c18c82bf82c5849868b3994a6d1f6f, type: 3}
+  MainImage: {fileID: 2800000, guid: 5726c5ba6467688458f60e708421463c, type: 3}
+  imagescaleMultyplyer: 1

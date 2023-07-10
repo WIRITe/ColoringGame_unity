@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6016422603038966115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570973873274167815}
+  - component: {fileID: 1870795717626601013}
+  m_Layer: 0
+  m_Name: new picture (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1570973873274167815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016422603038966115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1870795717626601013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016422603038966115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: "\u041A\u043E\u0442\u044B"
+  acess: 0
+  Name: cat9
+  Layers:
+  - {fileID: 2800000, guid: 7a4ee17d67b72784d91d08c6a3fa38cb, type: 3}
+  - {fileID: 2800000, guid: 48075951b6864e84eba06db8f2999f56, type: 3}
+  - {fileID: 2800000, guid: aa7691676485967429e86016699cc190, type: 3}
+  - {fileID: 2800000, guid: 6dab1a97abb252d42b4be0aae14e0638, type: 3}
+  - {fileID: 2800000, guid: 2e016e0c56e8f4f4cab7d1c15c69ff04, type: 3}
+  - {fileID: 2800000, guid: c7678ac68c951eb40b78f4fde4e49efe, type: 3}
+  - {fileID: 2800000, guid: 8e86353074a8af14094082f536ba051f, type: 3}
+  MainImage: {fileID: 2800000, guid: 375e243180abf8943bea6270306d8e42, type: 3}
+  imagescaleMultyplyer: 1

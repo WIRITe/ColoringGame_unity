@@ -201,7 +201,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1828083800331929461}
         m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
-        m_MethodName: LoadPicture
+        m_MethodName: start_coloring
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -225,3 +225,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _picture: {fileID: 0}
   _gameController: {fileID: 0}
+  _loadingScreen: {fileID: 0}

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4300386590479671349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8313841638983162384}
+  - component: {fileID: 6306598060064831525}
+  m_Layer: 0
+  m_Name: new picture (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8313841638983162384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300386590479671349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6306598060064831525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300386590479671349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: "\u0416\u0438\u0432\u043E\u0442\u043D\u044B\u0435"
+  acess: 0
+  Name: "\u0413\u0435\u043F\u0430\u0440\u0434"
+  Layers:
+  - {fileID: 2800000, guid: 4582b93c96a6995468126e864d7d9a2d, type: 3}
+  - {fileID: 2800000, guid: 032d626948ab4f546bcb706436766923, type: 3}
+  - {fileID: 2800000, guid: d70dc3e1782ef5d44ab6ff49be99ea05, type: 3}
+  - {fileID: 2800000, guid: fcfbcde9f63cfa44f8770d710582721e, type: 3}
+  - {fileID: 2800000, guid: 97a2414472eb7a44589a330a06251ac2, type: 3}
+  - {fileID: 2800000, guid: cc06c49080c775548ace3ef2c8ad5550, type: 3}
+  MainImage: {fileID: 2800000, guid: 07916f45f40c8164593c1ecfa848d770, type: 3}
+  imagescaleMultyplyer: 1

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/Debug/3y6y1v69/arm64-v8a",
+  "command": "I:\\Unity-Projects\\2023.1.0a24\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android22 --sysroot=I:/Unity-Projects/2023.1.0a24/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/sysroot -DEXTERNAL_FRAME_PACING_CODE -Dswappywrapper_EXPORTS -isystem C:/Users/WIRIT/.gradle/caches/transforms-3/467c3579f266553acb3501b86c7ede7f/transformed/games-frame-pacing-1.10.0/prefab/modules/swappy_static/include -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -Wall -Wextra -pedantic -Werror -g  -fno-limit-debug-info -fPIC -o FramePacing\\CMakeFiles\\swappywrapper.dir\\UnitySwappyWrapper.cpp.o -c I:\\Unity-Projects\\ColoringGame_unity\\ColoringGame\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\src\\main\\cpp\\FramePacing\\UnitySwappyWrapper.cpp",
+  "file": "I:\\Unity-Projects\\ColoringGame_unity\\ColoringGame\\Library\\Bee\\Android\\Prj\\IL2CPP\\Gradle\\unityLibrary\\src\\main\\cpp\\FramePacing\\UnitySwappyWrapper.cpp"
+}
+]
