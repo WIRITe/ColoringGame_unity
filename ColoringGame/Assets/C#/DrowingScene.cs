@@ -10,15 +10,21 @@ public class DrawingScene : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     public class Layer
     {
         public GameObject _object;
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     public class Layer
     {
         public GameObject _object;
         public SpriteRenderer _spriteRenderer;
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
         public int texWidth;
         public int texHeight;
@@ -26,14 +32,20 @@ public class DrawingScene : MonoBehaviour
         public Color[] _pixels;
         public bool isNeedToUpdate;
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
 
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 
         public float colored_procentage;
     }
 
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     public GameObject OneLayerPref;
     public Color32 NowColor;
@@ -55,6 +67,7 @@ public class DrawingScene : MonoBehaviour
     [Header("'a', on color change")]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public async Task StartGame(Picture _picture)
 =======
     [Header("'a', on color change")]
@@ -64,11 +77,16 @@ public class DrawingScene : MonoBehaviour
     public void StartGame(Picture _picture)
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     public float on_chose_color;
 
     public Vector2 lastPoint;
 
     public void StartGame(Picture _picture)
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     {
         _nowPicture = _picture;
@@ -82,8 +100,11 @@ public class DrawingScene : MonoBehaviour
         {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             layerColors.Add(_nowPicture.Layers[i].name, ColorUtility.TryParseHtmlString("#" + _nowPicture.Layers[i].name, out Color result) ? result : Color.white);
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             Sprite _originalSprite = Sprite.Create(_picture.Layers[i], new Rect(0, 0, _picture.Layers[i].width, _picture.Layers[i].height), Vector2.one * 0.5f);
@@ -99,6 +120,10 @@ public class DrawingScene : MonoBehaviour
             {
                 _object = new_layer,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+                _spriteRenderer = new_layer.GetComponent<SpriteRenderer>(),
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
                 _spriteRenderer = new_layer.GetComponent<SpriteRenderer>(),
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -133,7 +158,10 @@ public class DrawingScene : MonoBehaviour
 
             _layer.isNeedToUpdate = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
         }
@@ -144,6 +172,7 @@ public class DrawingScene : MonoBehaviour
             _colors.Add(_color);
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 MainThreadDispatcher.RunOnMainThread(() => CreateLayer(original_layerTexture, saved_layerTexture));
@@ -215,6 +244,42 @@ public class DrawingScene : MonoBehaviour
 
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+        colorsCanv.setButtons(_colors);
+
+        is_picture_colored(coloringLayers);
+    }
+
+    public void Set_nowColor(Color _color)
+    {
+        NowColor = (Color)_color;
+
+        foreach (Layer Layer in coloringLayers)
+        {
+            for (int i = 0; i < Layer._pixels.Length; i++)
+            {
+                if (Layer._pixels[i].a > 0.1f)
+                {
+                    if(Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.1f;
+                }
+            }
+
+            if (Layer._object.name == ColorUtility.ToHtmlStringRGB(NowColor))
+            {
+                for (int i = 0; i < Layer._pixels.Length; i++)
+                {
+                    if (Layer._pixels[i].a > 0.01f)
+                    {
+                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.6f;
+                    }
+                }
+            }
+
+            Layer.isNeedToUpdate = true;
+        }
+    }
+
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     private void Update()
     {
         if (Camera_controller.isCameraMoving)
@@ -240,7 +305,11 @@ public class DrawingScene : MonoBehaviour
         {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (Picture.is_picture_colored(coloringLayers))
+=======
+            if (is_picture_colored(coloringLayers))
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
             if (is_picture_colored(coloringLayers))
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -303,11 +372,17 @@ public class DrawingScene : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     //////\\\\\\
     /// Draw \\\
     //////\\\\\\
 
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     private Vector2 CalculateTextureCoordinates(Vector2 position, Layer _layer)
 =======
@@ -361,9 +436,13 @@ public class DrawingScene : MonoBehaviour
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         lastPoint = point;
 =======
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        if(point.x >= 0 && point.y >= 0) lastPoint = point;
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
         if(point.x >= 0 && point.y >= 0) lastPoint = point;
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -386,7 +465,11 @@ public class DrawingScene : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void Set_nowColor(Color _color)
+=======
+    public bool is_picture_colored(List<Layer> _picture)
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
     public bool is_picture_colored(List<Layer> _picture)
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -396,6 +479,7 @@ public class DrawingScene : MonoBehaviour
 
         foreach(Layer layer in _picture)
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             for (int i = 0; i < Layer._pixels.Length; i++)
             {
@@ -426,6 +510,11 @@ public class DrawingScene : MonoBehaviour
 
             for (int i = 0; i < pixels.Length; i++)
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+            Color[] pixels = layer._pixels;
+
+            for (int i = 0; i < pixels.Length; i++)
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             {
                 if (pixels[i].a > 0.01f)
                 {
@@ -447,6 +536,7 @@ public class DrawingScene : MonoBehaviour
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     #endregion
 
 
@@ -466,6 +556,9 @@ public class DrawingScene : MonoBehaviour
 =======
     public void fromBeginning()
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+    public void fromBeginning()
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     {
         FileHandler.deleteAllSavings(_nowPicture);
 
@@ -479,9 +572,14 @@ public class DrawingScene : MonoBehaviour
 <<<<<<< HEAD
         colorsCanv.DestroyAllColors();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         StartGame(_nowPicture);
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+
+        StartGame(_nowPicture);
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 
         StartGame(_nowPicture);
@@ -498,7 +596,10 @@ public class DrawingScene : MonoBehaviour
         {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             pictureToSave.Layers.Add(_layer._object.GetComponent<SpriteRenderer>().sprite.texture);
@@ -508,10 +609,15 @@ public class DrawingScene : MonoBehaviour
         _nowPicture = null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         foreach (Layer _layer in coloringLayers)
         {
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        foreach(Layer _layer in coloringLayers)
+        {
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
         foreach(Layer _layer in coloringLayers)
         {
@@ -523,6 +629,7 @@ public class DrawingScene : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         _gameCanvas.SetActive(false);
 
         layerColors = new Dictionary<string, Color32>();
@@ -530,6 +637,9 @@ public class DrawingScene : MonoBehaviour
 =======
         colorsCanv.GetComponent<ColorsCanvas>().DestroyAllColors();
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)

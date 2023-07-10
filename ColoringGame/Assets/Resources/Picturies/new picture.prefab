@@ -44,15 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0466aeabd86fa32429dc431f9ff2250d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
 <<<<<<< HEAD:ColoringGame/Assets/Resources/new picture.prefab
+=======
+<<<<<<<< HEAD:ColoringGame/Assets/Resources/Picturies/Lion.prefab
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 <<<<<<<< HEAD:ColoringGame/Assets/Resources/new picture.prefab
   category: Animals
 ========
   category: 0
 >>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen):ColoringGame/Assets/Resources/Picturies/Lion.prefab
+<<<<<<< HEAD
 =======
   category: Cars
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab
+=======
+========
+  category: Cars
+>>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   acess: 0
   Name: Lion
   Layers:

@@ -1,12 +1,23 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:ColoringGame/Assets/C#/MyTracker.meta
 guid: 6d0a659d6b496d742b396948841ab45a
+=======
+<<<<<<<< HEAD:ColoringGame/Assets/SimpleTouchControl/Scripts.meta
+guid: 0cce214e4cf044289953a8e852b5d988
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 ========
 guid: 8d852fe3bc44f7b45b3b736f10566535
 >>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/SimpleTouchControl.meta
 folderAsset: yes
+<<<<<<< HEAD
 DefaultImporter:
   externalObjects: {}
+=======
+timeCreated: 1493081856
+licenseType: Store
+DefaultImporter:
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

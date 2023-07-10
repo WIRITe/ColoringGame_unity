@@ -636,6 +636,7 @@ MonoBehaviour:
   _sprite: {fileID: 0}
   originalTexture: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   colorsCanv: {fileID: 1487862944}
   brushSize: 3
@@ -645,6 +646,10 @@ MonoBehaviour:
   on_chose_color: 0
   firstPress: {fileID: 0}
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+  on_chose_color: 0
+  lastPoint: {x: 0, y: 0}
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
   on_chose_color: 0
   lastPoint: {x: 0, y: 0}
@@ -664,6 +669,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &371070034
@@ -1056,6 +1062,8 @@ CanvasRenderer:
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &419448525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,16 +1383,22 @@ MonoBehaviour:
   ImageButtonPref: {fileID: 2488635543017814030, guid: 3ce8214869de5ce40b14e4febbbb5a6d, type: 3}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   folderPathes:
   - Picturies
   drowingScene: {fileID: 256755878}
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   animals_category_screen: {fileID: 0}
   cars_category_screen: {fileID: 0}
   peoples_category_screen: {fileID: 0}
   things_category_screen: {fileID: 0}
   folderPath: Picturies
   _table: {fileID: 256755878}
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   categorys_parrentObject: {fileID: 3252892436675427040}
   category_screen_prefab: {fileID: 1369433683696490849, guid: 01562c50ea0b6044d95b3ad8a6986d5b, type: 3}
@@ -1459,6 +1473,9 @@ RectTransform:
 =======
   m_Children: []
   m_Father: {fileID: 1236114337}
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1672,6 +1689,7 @@ MonoBehaviour:
   m_HorizontalFit: 0
   m_VerticalFit: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1015168364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,6 +1833,8 @@ Transform:
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &1236114333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,7 +1912,11 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_VertexColorAlwaysGammaSpace: 0
+=======
+  m_VertexColorAlwaysGammaSpace: 1
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
   m_VertexColorAlwaysGammaSpace: 1
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -1991,6 +2015,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357204197
 GameObject:
@@ -2116,6 +2141,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 369511239}
   m_RootOrder: -1
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2288,6 +2315,7 @@ MonoBehaviour:
   maxBoundaryX: 3
   maxBoundaryY: 3.5
   minBoundaryY: -3.5
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &2002975488
@@ -2743,6 +2771,8 @@ MonoBehaviour:
   m_Constraint: 0
   m_ConstraintCount: 10
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &2031919214
