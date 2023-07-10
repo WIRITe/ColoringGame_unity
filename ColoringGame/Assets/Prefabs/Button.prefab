@@ -125,7 +125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1828083800331929461}
         m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
-        m_MethodName: start_coloring
+        m_MethodName: LoadPicture
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _picture: {fileID: 0}
   _gameController: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
   _loadingScreen: {fileID: 0}
 =======
@@ -288,3 +289,5 @@ MonoBehaviour:
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)

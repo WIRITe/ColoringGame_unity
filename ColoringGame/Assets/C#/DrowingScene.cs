@@ -1,28 +1,40 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DrowingScene : MonoBehaviour
+public class DrawingScene : MonoBehaviour
 {
     public Picture _nowPicture;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     public class Layer
     {
         public GameObject _object;
+=======
+    public class Layer
+    {
+        public GameObject _object;
+        public SpriteRenderer _spriteRenderer;
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
         public int texWidth;
         public int texHeight;
         public Color[] _originalPixels;
         public Color[] _pixels;
         public bool isNeedToUpdate;
+<<<<<<< HEAD
     }
 
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+
+        public float colored_procentage;
+    }
+
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     public GameObject OneLayerPref;
     public Color32 NowColor;
     public GameObject _gameCanvas;
@@ -40,8 +52,9 @@ public class DrowingScene : MonoBehaviour
     public delegate void picture_is_colored();
     public static event picture_is_colored picture_is_colored_event;
 
-    private Vector2 lastPoint;
+    [Header("'a', on color change")]
 
+<<<<<<< HEAD
     public async Task StartGame(Picture _picture)
 =======
     [Header("'a', on color change")]
@@ -50,20 +63,29 @@ public class DrowingScene : MonoBehaviour
 
     public void StartGame(Picture _picture)
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+    public float on_chose_color;
+
+    public Vector2 lastPoint;
+
+    public void StartGame(Picture _picture)
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     {
         _nowPicture = _picture;
 
         _gameCanvas.SetActive(true);
 
-        List<Texture2D> _picture_textures = FileHandler.get_savedLayers(_nowPicture);
-
+        List<Texture2D> _picture_textures = FileHandler.get_savedLayers(_picture);
         layerColors = new Dictionary<string, Color32>();
 
-        for(int i = 0; i < _nowPicture.Layers.Count; i++)
+        for (int i = 0; i < _picture.Layers.Count; i++)
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             layerColors.Add(_nowPicture.Layers[i].name, ColorUtility.TryParseHtmlString("#" + _nowPicture.Layers[i].name, out Color result) ? result : Color.white);
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             Sprite _originalSprite = Sprite.Create(_picture.Layers[i], new Rect(0, 0, _picture.Layers[i].width, _picture.Layers[i].height), Vector2.one * 0.5f);
             _originalSprite.name = "original sprite";
             Sprite _savedSprite = Sprite.Create(_picture_textures[i], new Rect(0, 0, _picture_textures[i].width, _picture_textures[i].height), Vector2.one * 0.5f);
@@ -76,6 +98,10 @@ public class DrowingScene : MonoBehaviour
             Layer _layer = new Layer
             {
                 _object = new_layer,
+<<<<<<< HEAD
+=======
+                _spriteRenderer = new_layer.GetComponent<SpriteRenderer>(),
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
                 texWidth = _originalSprite.texture.width,
                 texHeight = _originalSprite.texture.height,
                 _pixels = _savedSprite.texture.GetPixels(),
@@ -106,16 +132,19 @@ public class DrowingScene : MonoBehaviour
             }
 
             _layer.isNeedToUpdate = true;
+<<<<<<< HEAD
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
         }
 
-        await Task.Run(() =>
+        List<Color32> _colors = new List<Color32>();
+        foreach (Color32 _color in layerColors.Values)
         {
-            for (int i = 0; i < _nowPicture.Layers.Count; i++)
-            {
-                Texture2D original_layerTexture = _nowPicture.Layers[i];
-                Texture2D saved_layerTexture = _picture_textures[i];
+            _colors.Add(_color);
+        }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                 MainThreadDispatcher.RunOnMainThread(() => CreateLayer(original_layerTexture, saved_layerTexture));
             }
@@ -139,43 +168,43 @@ public class DrowingScene : MonoBehaviour
             colorsCanv.updateProcentage(layerColor.Value, GetColoredPercentage(ColorUtility.ToHtmlStringRGB(NowColor)));
         }
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        colorsCanv.setButtons(_colors);
+
+        is_picture_colored(coloringLayers);
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     }
-    private void CreateLayer(Texture2D original_layerTexture, Texture2D saved_layerTexture)
+
+    public void Set_nowColor(Color _color)
     {
-        Sprite _originalSprite = Picture.createSprite(original_layerTexture);
-        _originalSprite.name = "original sprite";
-        Sprite _savedSprite = Picture.createSprite(saved_layerTexture);
-        _savedSprite.name = "saved sprite: " + saved_layerTexture.name;
+        NowColor = (Color)_color;
 
-        GameObject new_layer = Instantiate(OneLayerPref, Vector3.zero, Quaternion.identity);
-        new_layer.transform.localScale = new Vector3(1, 1, 1);
-        new_layer.name = original_layerTexture.name;
-
-        Layer _layer = new Layer
+        foreach (Layer Layer in coloringLayers)
         {
-            _object = new_layer,
-            _spriteRenderer = new_layer.GetComponent<SpriteRenderer>(),
-            texWidth = _originalSprite.texture.width,
-            texHeight = _originalSprite.texture.height,
-            _pixels = _savedSprite.texture.GetPixels(),
-            _originalPixels = _originalSprite.texture.GetPixels(),
-            isNeedToUpdate = true
-        };
+            for (int i = 0; i < Layer._pixels.Length; i++)
+            {
+                if (Layer._pixels[i].a > 0.1f)
+                {
+                    if(Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.1f;
+                }
+            }
 
-        SpriteRenderer spriteRenderer = new_layer.GetComponent<SpriteRenderer>();
+            if (Layer._object.name == ColorUtility.ToHtmlStringRGB(NowColor))
+            {
+                for (int i = 0; i < Layer._pixels.Length; i++)
+                {
+                    if (Layer._pixels[i].a > 0.01f)
+                    {
+                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.6f;
+                    }
+                }
+            }
 
-        // add polygon collider component \\
-        spriteRenderer.sprite = Picture.createSprite(_originalSprite.texture);
-
-        new_layer.AddComponent<PolygonCollider2D>();
-
-        spriteRenderer.sprite = _savedSprite;
-
-        coloringLayers.Add(_layer);
-
-        _layer.isNeedToUpdate = true;
+            Layer.isNeedToUpdate = true;
+        }
     }
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     #region coloring functions
@@ -184,6 +213,8 @@ public class DrowingScene : MonoBehaviour
     private Vector2 lastPoint;
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     private void Update()
     {
         if (Camera_controller.isCameraMoving)
@@ -208,7 +239,11 @@ public class DrowingScene : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (Picture.is_picture_colored(coloringLayers))
+=======
+            if (is_picture_colored(coloringLayers))
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             {
                 picture_is_colored_event?.Invoke();
                 FileHandler.set_picture_coloring_state(_nowPicture);
@@ -227,9 +262,9 @@ public class DrowingScene : MonoBehaviour
                 Vector2 currentPoint = CalculateTextureCoordinates(mousePosition, layer);
 
                 float distance = Vector2.Distance(currentPoint, lastPoint);
-                if (distance > brushSize/2)
+                if (distance > brushSize)
                 {
-                    int steps = Mathf.CeilToInt(distance / (brushSize / 2));
+                    int steps = Mathf.CeilToInt(distance / brushSize);
                     for (int i = 0; i < steps; i++)
 =======
                 if (firstPress.name == ColorUtility.ToHtmlStringRGB(NowColor))
@@ -267,6 +302,13 @@ public class DrowingScene : MonoBehaviour
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    //////\\\\\\
+    /// Draw \\\
+    //////\\\\\\
+
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     private Vector2 CalculateTextureCoordinates(Vector2 position, Layer _layer)
 =======
     //////\\\\\\
@@ -318,9 +360,13 @@ public class DrowingScene : MonoBehaviour
         }
 <<<<<<< HEAD
 
+<<<<<<< HEAD
         lastPoint = point;
 =======
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        if(point.x >= 0 && point.y >= 0) lastPoint = point;
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     }
 
     private IEnumerator UpdateTextures()
@@ -339,12 +385,18 @@ public class DrowingScene : MonoBehaviour
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void Set_nowColor(Color _color)
+=======
+    public bool is_picture_colored(List<Layer> _picture)
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     {
-        NowColor = (Color)_color;
+        int coloredPixelCount = 0;
+        int pixelsCount = 0;
 
-        foreach (Layer Layer in coloringLayers)
+        foreach(Layer layer in _picture)
         {
+<<<<<<< HEAD
             for (int i = 0; i < Layer._pixels.Length; i++)
             {
                 if (Layer._pixels[i].a > 0.1f)
@@ -369,20 +421,32 @@ public class DrowingScene : MonoBehaviour
 
 <<<<<<< HEAD
             if (Layer._object.name == ColorUtility.ToHtmlStringRGB(NowColor))
+=======
+            Color[] pixels = layer._pixels;
+
+            for (int i = 0; i < pixels.Length; i++)
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             {
-                for (int i = 0; i < Layer._pixels.Length; i++)
+                if (pixels[i].a > 0.01f)
                 {
-                    if (Layer._pixels[i].a > 0.01f)
+                    if (pixels[i].a == 1.0f)
                     {
-                        if (Layer._pixels[i].a != 1.0f) Layer._pixels[i].a = 0.6f;
+                        coloredPixelCount++;
                     }
+                    pixelsCount++;
                 }
             }
-
-            Layer.isNeedToUpdate = true;
         }
+
+        float coloredPercentage = (float)((float)coloredPixelCount / (float)pixelsCount);
+
+        Debug.Log("coloredPercentage: " + coloredPercentage.ToString());
+
+        if (coloredPercentage >= 0.7) return true;
+        return false;
     }
 
+<<<<<<< HEAD
     #endregion
 
 
@@ -399,6 +463,9 @@ public class DrowingScene : MonoBehaviour
 
     public void fromBeginning()
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+    public void fromBeginning()
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     {
         FileHandler.deleteAllSavings(_nowPicture);
 
@@ -411,34 +478,50 @@ public class DrowingScene : MonoBehaviour
 
 <<<<<<< HEAD
         colorsCanv.DestroyAllColors();
+<<<<<<< HEAD
 =======
         StartGame(_nowPicture);
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+
+        StartGame(_nowPicture);
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     }
 
-    public void deletePictureFromScene()
+    public void Exit()
     {
-        Picture.savePicture(_nowPicture, coloringLayers);
+        Picture pictureToSave = new Picture();
+
+        pictureToSave.Name = _nowPicture.Name;
 
         foreach (Layer _layer in coloringLayers)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             pictureToSave.Layers.Add(_layer._object.GetComponent<SpriteRenderer>().sprite.texture);
         }
 
         FileHandler.savePicture(pictureToSave);
         _nowPicture = null;
 
+<<<<<<< HEAD
 
         foreach (Layer _layer in coloringLayers)
         {
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        foreach(Layer _layer in coloringLayers)
+        {
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             Destroy(_layer._object);
         }
 
         coloringLayers = new List<Layer>();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         _gameCanvas.SetActive(false);
 
@@ -447,18 +530,12 @@ public class DrowingScene : MonoBehaviour
 =======
         colorsCanv.GetComponent<ColorsCanvas>().DestroyAllColors();
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     }
-
-    public class Layer
+    private void OnApplicationQuit()
     {
-        public GameObject _object;
-        public SpriteRenderer _spriteRenderer;
-        public int texWidth;
-        public int texHeight;
-        public Color[] _originalPixels;
-        public Color[] _pixels;
-        public bool isNeedToUpdate;
-
-        public float colored_procentage;
+        Exit();
     }
 }

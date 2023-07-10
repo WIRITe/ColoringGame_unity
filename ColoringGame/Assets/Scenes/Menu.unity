@@ -155,7 +155,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1236114337}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -206,10 +206,46 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 804830854}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 256755878}
+        m_TargetAssemblyTypeName: DrawingScene, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 216762942}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 256755877}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1236114333}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -551,7 +587,7 @@ RectTransform:
   m_Children:
   - {fileID: 2031919215}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -595,10 +631,11 @@ MonoBehaviour:
   _gameCanvas: {fileID: 1236114333}
 <<<<<<< HEAD
   colorsCanv: {fileID: 968434197}
-  brushSize: 2
+  brushSize: 3
   spriteRenderer: {fileID: 0}
   _sprite: {fileID: 0}
   originalTexture: {fileID: 0}
+<<<<<<< HEAD
 =======
   colorsCanv: {fileID: 1487862944}
   brushSize: 3
@@ -608,6 +645,10 @@ MonoBehaviour:
   on_chose_color: 0
   firstPress: {fileID: 0}
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+  on_chose_color: 0
+  lastPoint: {x: 0, y: 0}
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!4 &256755880
 Transform:
   m_ObjectHideFlags: 0
@@ -621,8 +662,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &371070034
 =======
@@ -1012,6 +1054,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 369511238}
   m_CullTransparentMesh: 1
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &419448525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1088,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1236114337}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1095,9 +1139,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 804830854}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: start_coloringFromBeginning
+      - m_Target: {fileID: 256755878}
+        m_TargetAssemblyTypeName: DrawingScene, Assembly-CSharp
+        m_MethodName: fromBeginning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1328,12 +1372,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuCanvas: {fileID: 216762942}
-  loadingScreen: {fileID: 371070034}
   ImageButtonPref: {fileID: 2488635543017814030, guid: 3ce8214869de5ce40b14e4febbbb5a6d, type: 3}
+<<<<<<< HEAD
 <<<<<<< HEAD
   folderPathes:
   - Picturies
   drowingScene: {fileID: 256755878}
+=======
+  animals_category_screen: {fileID: 0}
+  cars_category_screen: {fileID: 0}
+  peoples_category_screen: {fileID: 0}
+  things_category_screen: {fileID: 0}
+  folderPath: Picturies
+  _table: {fileID: 256755878}
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   categorys_parrentObject: {fileID: 3252892436675427040}
   category_screen_prefab: {fileID: 1369433683696490849, guid: 01562c50ea0b6044d95b3ad8a6986d5b, type: 3}
   categorys_toggles_parrentObject: {fileID: 1725187975900061}
@@ -1356,7 +1408,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &804830856
 MonoBehaviour:
@@ -1400,9 +1452,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
+<<<<<<< HEAD
   m_Children:
   - {fileID: 323498534}
   m_Father: {fileID: 3252892435687823936}
+=======
+  m_Children: []
+  m_Father: {fileID: 1236114337}
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1534,7 +1591,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonPrefab: {fileID: 1035377512645840592, guid: 0d7b6493d4ba6d04ca1d212506460fe8, type: 3}
-  ColorButtons: []
 --- !u!114 &968434198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,6 +1671,7 @@ MonoBehaviour:
 <<<<<<< HEAD
   m_HorizontalFit: 0
   m_VerticalFit: 0
+<<<<<<< HEAD
 --- !u!1 &1015168364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,6 +1813,8 @@ Transform:
   m_GameObject: {fileID: 1156489012}
   m_CullTransparentMesh: 0
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &1236114333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,10 +1891,14 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+<<<<<<< HEAD
   m_VertexColorAlwaysGammaSpace: 0
+=======
+  m_VertexColorAlwaysGammaSpace: 1
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1148197115
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1236114337
@@ -1854,7 +1917,7 @@ RectTransform:
   - {fileID: 2696132}
   - {fileID: 1525154464}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1927,51 +1990,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1271993107
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1271993109}
-  - component: {fileID: 1271993108}
-  m_Layer: 0
-  m_Name: MainThreadDispatcher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1271993108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271993107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe76dedd6253524996c9fdad336d478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1271993109
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271993107}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2068404, y: 423.07852, z: -786.4142}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357204197
 GameObject:
@@ -2248,7 +2267,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1517293317
 MonoBehaviour:
@@ -2269,6 +2288,7 @@ MonoBehaviour:
   maxBoundaryX: 3
   maxBoundaryY: 3.5
   minBoundaryY: -3.5
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &2002975488
 PrefabInstance:
@@ -2723,6 +2743,8 @@ MonoBehaviour:
   m_Constraint: 0
   m_ConstraintCount: 10
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &2031919214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,7 +2777,7 @@ RectTransform:
   m_Children:
   - {fileID: 3252892436949557733}
   m_Father: {fileID: 216762946}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3706,7 +3728,7 @@ RectTransform:
   - {fileID: 224081372349073133}
   - {fileID: 224641813773090459}
   m_Father: {fileID: 3252892436949557733}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
