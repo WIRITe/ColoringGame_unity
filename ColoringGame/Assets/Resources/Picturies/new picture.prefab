@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:ColoringGame/Assets/Resources/new picture.prefab
 =======
+<<<<<<<< HEAD:ColoringGame/Assets/Resources/Picturies/Lion.prefab
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+<<<<<<<< HEAD:ColoringGame/Assets/Resources/Picturies/Lion.prefab
 <<<<<<<< HEAD:ColoringGame/Assets/Resources/Picturies/Lion.prefab
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 <<<<<<<< HEAD:ColoringGame/Assets/Resources/new picture.prefab
@@ -55,10 +60,19 @@ MonoBehaviour:
   category: 0
 >>>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen):ColoringGame/Assets/Resources/Picturies/Lion.prefab
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   category: Cars
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab
 =======
+========
+  category: Cars
+>>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+========
+  category: Cars
+>>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab
 ========
   category: Cars
 >>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/Resources/Picturies/new picture.prefab

@@ -32,6 +32,17 @@ public class GameController : MonoBehaviour
     public GameObject peoples_category_screen;
     public GameObject things_category_screen;
 
+<<<<<<< HEAD
+    [Header("Pictures path")]
+    public string folderPath = "Picturies";
+
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+    public GameObject animals_category_screen;
+    public GameObject cars_category_screen;
+    public GameObject peoples_category_screen;
+    public GameObject things_category_screen;
+
     [Header("Pictures path")]
     public string folderPath = "Picturies";
 
@@ -53,7 +64,34 @@ public class GameController : MonoBehaviour
         {
             GameObject instantiatedPref = Instantiate(ImageButtonPref);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+            if (category_screens.ContainsKey(picture.category))
+            {
+                instantiatedPref.transform.SetParent(category_screens[picture.category].transform.Find("Scroll View/Viewport/content").transform);
+            }
+            else
+            {
+                GameObject new_category_screen = Instantiate(category_screen_prefab, categorys_parrentObject.transform);
+                category_screens.Add(picture.category, new_category_screen);
+
+                GameObject new_category_toggle_screen = Instantiate(category_toggle_screen_prefab, categorys_toggles_parrentObject.transform);
+                new_category_toggle_screen.transform.Find("Background").GetComponent<TMP_Text>().text = picture.category;
+                new_category_toggle_screen.GetComponent<Toggle>().group = categorys_toggles_parrentObject.GetComponent<ToggleGroup>();
+
+                new_category_screen.name = picture.category;
+
+                instantiatedPref.transform.SetParent(new_category_screen.transform.Find("Scroll View/Viewport/content").transform);
+            }
+
+            if(picture.acess == Enums.EAcess.Premium)
+            {
+                instantiatedPref.transform.Find("isPrivate").gameObject.SetActive(true);
+                instantiatedPref.GetComponent<Button>().interactable = false;
+            }
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 
             if (category_screens.ContainsKey(picture.category))
             {
@@ -121,6 +159,7 @@ public class GameController : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             picturesDictionary.Add(picture, instantiatedPref);
 =======
             Sprite _sprite = Sprite.Create(picture.MainImage, new Rect(0, 0, picture.MainImage.width, picture.MainImage.height), Vector2.one * 0.5f);
@@ -130,6 +169,8 @@ public class GameController : MonoBehaviour
             instantiatedPref.transform.Find("Name").GetComponent<TMP_Text>().text = picture.Name;
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
             if (FileHandler.is_picture_colored(picture))
@@ -162,6 +203,9 @@ public class GameController : MonoBehaviour
                 instantiatedPref.GetComponent<Image>().sprite = _sprite;
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -178,10 +222,15 @@ public class GameController : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void start_coloringFromBeginning()
 =======
     public List<Picture> GetPictures()
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+
+    public List<Picture> GetPictures()
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 
     public List<Picture> GetPictures()

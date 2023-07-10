@@ -18,10 +18,14 @@ public class ColorsCanvas : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<GameObject> ColorButtons = new List<GameObject>();
 =======
     public List<GameObject> ColorButtons;
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+    public List<_color> ColorButtons = new List<_color>();
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
     public List<_color> ColorButtons = new List<_color>();
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -57,6 +61,7 @@ public class ColorsCanvas : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(colorButton.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
             {
                 StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
@@ -67,6 +72,12 @@ public class ColorsCanvas : MonoBehaviour
                 StartCoroutine(scaleObj(colorButton.transform.Find("Button").gameObject, 1.2f, 0.5f));
 
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+            
+            if(colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
+            {
+                StartCoroutine(scaleObj(colorButton._button.transform.Find("Button").gameObject, 1.2f, 0.5f));
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
             
             if(colorButton._button.gameObject.name == ColorUtility.ToHtmlStringRGB(_color))
@@ -99,6 +110,7 @@ public class ColorsCanvas : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     public void updateProcentage(Color _color, float procentage)
     {
@@ -110,6 +122,8 @@ public class ColorsCanvas : MonoBehaviour
 =======
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
     public void updateProcentage(Color _color, float procentage)
     {
         foreach (_color colorButton in ColorButtons)
@@ -118,6 +132,9 @@ public class ColorsCanvas : MonoBehaviour
             {
                 colorButton.procent = procentage;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -127,7 +144,10 @@ public class ColorsCanvas : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
@@ -142,9 +162,13 @@ public class ColorsCanvas : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
         ColorButtons = new List<GameObject>();
+=======
+        ColorButtons = new List<_color>();
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
         ColorButtons = new List<_color>();
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)

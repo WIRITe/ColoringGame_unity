@@ -152,6 +152,7 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   _loadingScreen: {fileID: 0}
 =======
 --- !u!1 &7449344633954997841
@@ -290,6 +291,8 @@ MonoBehaviour:
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======

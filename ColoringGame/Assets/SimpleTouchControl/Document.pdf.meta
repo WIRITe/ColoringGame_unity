@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:ColoringGame/Assets/SimpleTouchControl/Document.pdf.meta
 guid: 46615f3b4c752440295572f756f1143f
 timeCreated: 1493724512
 licenseType: Store
+========
+guid: 8d852fe3bc44f7b45b3b736f10566535
+folderAsset: yes
+>>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly):ColoringGame/Assets/SimpleTouchControl.meta
 DefaultImporter:
   userData: 
   assetBundleName: 

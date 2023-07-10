@@ -637,6 +637,7 @@ MonoBehaviour:
   originalTexture: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   colorsCanv: {fileID: 1487862944}
   brushSize: 3
@@ -646,6 +647,10 @@ MonoBehaviour:
   on_chose_color: 0
   firstPress: {fileID: 0}
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+  on_chose_color: 0
+  lastPoint: {x: 0, y: 0}
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
   on_chose_color: 0
   lastPoint: {x: 0, y: 0}
@@ -669,6 +674,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1064,6 +1070,8 @@ CanvasRenderer:
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &419448525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,10 +1392,13 @@ MonoBehaviour:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   folderPathes:
   - Picturies
   drowingScene: {fileID: 256755878}
 =======
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   animals_category_screen: {fileID: 0}
@@ -1397,6 +1408,9 @@ MonoBehaviour:
   folderPath: Picturies
   _table: {fileID: 256755878}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -1474,6 +1488,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1236114337}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -1690,6 +1707,7 @@ MonoBehaviour:
   m_VerticalFit: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1015168364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1853,8 @@ Transform:
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 --- !u!1 &1236114333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,7 +1933,11 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_VertexColorAlwaysGammaSpace: 0
+=======
+  m_VertexColorAlwaysGammaSpace: 1
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
   m_VertexColorAlwaysGammaSpace: 1
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
@@ -2015,6 +2039,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+<<<<<<< HEAD
 <<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357204197
@@ -2141,6 +2166,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 369511239}
   m_RootOrder: -1
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2315,6 +2342,7 @@ MonoBehaviour:
   maxBoundaryX: 3
   maxBoundaryY: 3.5
   minBoundaryY: -3.5
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2771,6 +2799,8 @@ MonoBehaviour:
   m_Constraint: 0
   m_ConstraintCount: 10
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======

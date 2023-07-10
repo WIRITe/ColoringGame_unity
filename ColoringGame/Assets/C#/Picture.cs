@@ -8,11 +8,15 @@ public class Picture : MonoBehaviour
     public string category;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public EAcess acess;
 =======
     public Enums.ECategory category;
     public Enums.EAcess acess;
 >>>>>>> parent of 35036dd (finish build, without rustore (subscription) and finish screen)
+=======
+    public Enums.EAcess acess;
+>>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
 =======
     public Enums.EAcess acess;
 >>>>>>> parent of acbf349 (ready project, without subscribtion and alot API. But working/building correctly)
