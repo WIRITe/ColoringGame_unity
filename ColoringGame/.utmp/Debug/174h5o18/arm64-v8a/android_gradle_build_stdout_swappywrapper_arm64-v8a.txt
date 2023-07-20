@@ -1,0 +1,3 @@
+ninja: Entering directory `I:\Unity-Projects\ColoringGame_unity\ColoringGame\.utmp\Debug\174h5o18\arm64-v8a'
+[1/2] Building CXX object FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o
+[2/2] Linking CXX shared library I:\Unity-Projects\ColoringGame_unity\ColoringGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\174h5o18\obj\arm64-v8a\libswappywrapper.so
