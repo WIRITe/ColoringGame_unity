@@ -1,6 +1,5 @@
 <dependencies>
   <packages>
-    <package>com.my.tracker:mytracker-sdk:3.0.+</package>
     <package>ru.rustore.sdk:billingclient:1.1.1</package>
   </packages>
   <files />
@@ -9,8 +8,8 @@
     <setting name="bundleId" value="com.DefaultCompany.raskras" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
-    <setting name="gradlePropertiesTemplateEnabled" value="False" />
-    <setting name="gradleTemplateEnabled" value="False" />
+    <setting name="gradlePropertiesTemplateEnabled" value="True" />
+    <setting name="gradleTemplateEnabled" value="True" />
     <setting name="installAndroidPackages" value="True" />
     <setting name="localMavenRepoDir" value="Assets/GeneratedLocalRepo" />
     <setting name="packageDir" value="Assets/Plugins/Android" />
