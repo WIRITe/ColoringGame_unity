@@ -19,6 +19,7 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'com.my.tracker:mytracker-sdk:3.0.+' // Assets/Mycom.Tracker.Unity/Editor/MyTrackerDependencies.xml:3
     implementation 'ru.rustore.sdk:billingclient:1.1.1' // Assets/RuStoreSDK/BillingClient/Editor/BillingClientDependencies.xml:7
 // Android Resolver Dependencies End
 **DEPS**}
