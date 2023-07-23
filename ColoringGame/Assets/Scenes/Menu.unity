@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d55b7dcbf87f2c4bb145bb50f48d565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  android_SDK_key: h7OtQ4jtUcDs5su57Wp1aTPQgHAFoKtZgbt6eVjx7kdoFq7mVGIqdDCkRlJBZwok
+  android_SDK_key: 82571181320780920762
   IOs_SDK_key: 
 --- !u!4 &962364331
 Transform:
