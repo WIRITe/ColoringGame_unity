@@ -1,0 +1,5 @@
+I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/RelWithDebInfo/2p5r5944/armeabi-v7a/CMakeFiles/edit_cache.dir
+I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/RelWithDebInfo/2p5r5944/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/RelWithDebInfo/2p5r5944/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/RelWithDebInfo/2p5r5944/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+I:/Unity-Projects/ColoringGame_unity/ColoringGame/.utmp/RelWithDebInfo/2p5r5944/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
